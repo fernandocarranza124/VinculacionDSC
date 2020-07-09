@@ -1,0 +1,6 @@
+# Redirect all requests to public folder
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^.*$ http://localhost/itm-vinculacion/public [R=301,L]
+RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
