@@ -11,6 +11,7 @@
       src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"
       data-search-pseudo-elements
     ></script>
+        <link rel="stylesheet" type="text/css" href="css/estilosPropios.css">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">

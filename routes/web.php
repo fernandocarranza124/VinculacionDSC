@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('expediente');
 });
 Route::get('/catalogo', function () {
-    return view('tarjetas');
+    return view('catalogo');
 });
 
 Auth::routes();
