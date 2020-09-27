@@ -19,3 +19,7 @@ Route::get('/', function () {
 Route::get('/catalogo', function () {
     return view('tarjetas');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
