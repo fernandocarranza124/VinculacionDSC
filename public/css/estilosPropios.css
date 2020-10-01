@@ -37,3 +37,73 @@
         border-left:10px solid #04c496;
         height: 15%;
     }
+    .panel-documentos{
+        height: 32rem;
+    }
+    .pendientes{
+        box-shadow: inset 0 -5px 0 #4E6978
+    }
+    .revision{
+        box-shadow: inset 0 -5px 0 #FFC004
+    }
+    .aprobados{
+        box-shadow: inset 0 -5px 0 #04c496
+    }
+    .btn-tertiary {
+  color: #555;
+  padding: 0;
+  line-height: 40px;
+  width: 300px;
+  margin: auto;
+  display: block;
+  border: 2px solid #555;
+  &:hover, 
+    &:focus {
+      color: lighten(#555, 20%);
+      border-color: lighten(#555, 20%);
+    }
+}
+
+/* input file style */
+
+.input-file {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  + .js-labelFile {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 10px;
+    cursor: pointer;
+    .icon:before {
+      //font-awesome
+      content: "\f093";
+    }
+    &.has-file {
+      .icon:before {
+        //font-awesome
+        content: "\f00c";
+        color: #5AAC7B;
+      }
+    }
+  }
+}
+
+.padding-sides-none{
+    padding-right: 0px; 
+    padding-left: 0px;
+}
+.inputBorder{
+        
+        border-right: 1px #ababab solid;
+        border-left: 1px #ababab solid;
+        border-top: 1px #ababab solid;
+        border-bottom: 1px #ababab solid;
+}
+.iconPDF{
+    height: 5rem;float: left; position: relative; top: -0.5rem;
+}
