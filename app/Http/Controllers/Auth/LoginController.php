@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use \Illuminate\Http\Request;
+use \App\Models\Alumno;
+use Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -26,6 +28,11 @@ class LoginController extends Controller
      *
      * @var string
      */
+
+    public function username()
+    {
+        return 'noControl';
+    }
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
@@ -37,4 +44,7 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+
+    
 }

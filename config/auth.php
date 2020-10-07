@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'alumno',
     ],
 
     /*
@@ -28,7 +28,7 @@ return [
     | here which uses session storage and the Eloquent user provider.
     |
     | All authentication drivers have a user provider. This defines how the
-    | users are actually retrieved out of your database or other storage
+    | alumno are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
     | Supported: "session", "token"
@@ -38,13 +38,30 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'alumno',
         ],
 
         'api' => [
             'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
+            'provider' => 'alumno',
+        ],
+        'profesor' => [
+            'driver' => 'session',
+            'provider' => 'profesor',
+        ],
+
+        'api-profesor' => [
+            'driver' => 'token',
+            'provider' => 'profesor',
+        ],
+        'jefeoficina' => [
+            'driver' => 'session',
+            'provider' => 'jefeoficina',
+        ],
+
+        'api-jefeoficina' => [
+            'driver' => 'token',
+            'provider' => 'jefeoficina',
         ],
     ],
 
@@ -54,7 +71,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | All authentication drivers have a user provider. This defines how the
-    | users are actually retrieved out of your database or other storage
+    | alumno are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
     | If you have multiple user tables or models you may configure multiple
@@ -66,15 +83,23 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'alumno' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Alumno::class,
+        ],
+        'profesor' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Profesor::class,
+        ],
+        'jefeoficina' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\JefeOficina::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'alumno' => [
+            'driver' => 'database',
+            'table' => 'alumno',
+        ],
     ],
 
     /*
@@ -93,8 +118,20 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'alumno' => [
+            'provider' => 'alumno',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'profesor' => [
+            'provider' => 'profesor',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'jefeoficina' => [
+            'provider' => 'jefeoficina',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

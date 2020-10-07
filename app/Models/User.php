@@ -16,8 +16,14 @@ class User extends Authenticatable
      *
      * @var array
      */
+        protected $table = 'alumno';
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
-        'name', 'email', 'password',
+        'noControl', 'nombre', 'apellidoPaterno', 'apellidoMaterno', 'semestre', 'carrera', 'correoElectronico', 'correoElectronicoTecNM', 'especialidad', 'sexo','id','password',
     ];
 
     /**
@@ -26,7 +32,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
     ];
 
     /**
@@ -34,7 +40,33 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+
+
+
+
+
+
+
+
+    // protected $fillable = [
+    //     'name', 'email', 'password',
+    // ];
+
+    // /**
+    //  * The attributes that should be hidden for arrays.
+    //  *
+    //  * @var array
+    //  */
+    // protected $hidden = [
+    //     'password', 'remember_token',
+    // ];
+
+    // /**
+    //  * The attributes that should be cast to native types.
+    //  *
+    //  * @var array
+    //  */
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
 }

@@ -5,25 +5,13 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('loginAlumno') }}</div>
+                <div class="card-header">{{ __('Confirm Password') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    {{ __('Please confirm your password before continuing.') }}
+
+                    <form method="POST" action="{{ route('password.confirm') }}">
                         @csrf
-
-                        <div class="form-group row">
-                            <label for="noControl" class="col-md-4 col-form-label text-md-right">{{ __('noControl') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="noControl" type="text" class="form-control @error('noControl') is-invalid @enderror" name="noControl" value="{{ old('noControl') }}" required autocomplete="noControl" autofocus>
-
-                                @error('noControl')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
@@ -39,12 +27,10 @@
                             </div>
                         </div>
 
-                        
-
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
+                                    {{ __('Confirm Password') }}
                                 </button>
 
                                 @if (Route::has('password.request'))
