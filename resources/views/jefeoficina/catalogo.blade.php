@@ -29,8 +29,21 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary btn-raised btn-sm">Editar</button>
+                            
+                            <script>
+                                function probando(IDVacante) {
+                                    document.getElementById("prueba").innerHTML = "<a href='edit/"+IDVacante+"'><button type='button' class='btn btn-primary btn-raised btn-sm' id='modal-id'>Editar</button></a>";
+                                }
+                                
+                            </script>
+                            <div  class="col-sm-8"></div>
+                            <div id="prueba" class="col-sm-2">
+                                
+                            </div>
+                            <div  class="col-sm-2">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>    
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -83,7 +96,7 @@
                                     $especialidades=$especialidades.' Seguridad informatica';
                                     @endphp
                                     @endif
-                                    @if($vacante->ArqWeb)
+                                    @if($vacante->TecWeb)
                                     <span class="badge badge-secondary">Tecnologias web</span>
                                     @php
                                     $especialidades=$especialidades.' Tecnologias web';
@@ -96,7 +109,7 @@
                     
                     <div class="panel-footer text-right">
 
-                            <button type="button" class="btn btn-primary btn-raised btn-sm" data-toggle="modal" data-target="#myModal" data-title="{{$vacante->empresa}}" data-tag="{{$especialidades}}" data-image="{{ URL::asset('img/'.$vacante->ruta)}}">
+                            <button type="button" class="btn btn-primary btn-raised btn-sm" data-toggle="modal" data-target="#myModal" data-title="{{$vacante->empresa}}" data-tag="{{$especialidades}}" data-image="{{ URL::asset('img/'.$vacante->ruta)}}" onclick="probando({{$vacante->id}})">
                                 Ver
                             </button>
                             <a class="btn btn-warning btn-raised btn-sm" href="{{route('jefeoficina.vacante.edit', $vacante->id)}}"> Editar</a>

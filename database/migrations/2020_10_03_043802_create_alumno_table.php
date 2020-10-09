@@ -21,13 +21,15 @@ class CreateAlumnoTable extends Migration
             $table->string('apellidoPaterno');
             $table->string('apellidoMaterno');
             $table->smallInteger('semestre');
-            $table->smallInteger('carrera');
+            $table->unsignedBigInteger('carrera');
             $table->string('correoElectronico');
             $table->string('correoElectronicoTecNM');
             $table->string('especialidad');
             $table->string('sexo');
             $table->timestamps();
             $table->rememberToken();
+            $table->foreign('carrera')->references('id')->on('carrera')->constrained()
+                ->onDelete('cascade');
         });
     }
 

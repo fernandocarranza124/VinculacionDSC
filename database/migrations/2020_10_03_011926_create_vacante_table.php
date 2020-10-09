@@ -16,7 +16,7 @@ class CreateVacanteTable extends Migration
         Schema::create('vacante', function (Blueprint $table) {
             $table->id();
             $table->string('empresa');
-            $table->boolean('ArqWeb');
+            $table->boolean('TecWeb');
             $table->boolean('IngSof');
             $table->boolean('SegInf');
             $table->char('telefono');

@@ -58,7 +58,7 @@
                                     <h4 >Especialidad:</h4>
                                     <div class="input-group" style="width: 100%; text-align-last: left;">
                                         <div class="form-check form-check-inline">
-                                            @if($vacante->ArqWeb)
+                                            @if($vacante->TecWeb)
                                             <input class="form-check-input" type="checkbox" id="Tecnologias Web" checked="" name="TecWeb" value="true">
                                             @else
                                             <input class="form-check-input" type="checkbox" id="Tecnologias Web" name="TecWeb" value="false">
@@ -115,10 +115,19 @@
                                     <h4 for="activa" style="text-align: left;">Imagen: </h4>
                                 </div>
                                 <div class="col-sm-9">
-                                    <button type="button" class="btn btn-primary btn-raised btn-md">Elegir imagen</button>
-                                    <input style="display: none;" class="" type="file" name="ruta" value="{{$vacante->ruta}}" placeholder="{{$vacante->ruta}}">    
+                                    <button type="button" id="imagenBoton" onclick="seleccionaArchivo()" class="btn btn-primary btn-raised btn-md">Elegir imagen</button>
+                                    <input style="display: none;" class="" type="file" name="ruta" value="{{$vacante->ruta}}" placeholder="{{$vacante->ruta}}" id="archivo" accept="image/*" onchange="actualizaNombre()">    
                                     <script type="text/javascript">
-                                        
+                                           function seleccionaArchivo() {
+                                               document.getElementById('archivo').click();
+                                           }
+                                           function actualizaNombre() {
+                                            var path=document.getElementById('archivo').value;
+                                             var filename = path.replace(/^.*\\/, "");
+                                                
+                                            document.getElementById('imagenBoton').innerHTML=('<i class="fas fa-image"></i>'+filename);     
+                                            
+                                           }
                                     </script>
                                 </div>
                           </div>
