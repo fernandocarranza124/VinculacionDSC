@@ -5,23 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Vacante extends Model
+class Departamento extends Model
 {
     use HasFactory;
-    protected $table = 'vacante';
+    protected $table = 'departamento';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'id', 'nombre', 'ArqWeb', 'IngSof', 'SrgInf', 'empresa', 'telefono', 'activa','departamento','ruta'
+        'id', 'nombre',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    
 }

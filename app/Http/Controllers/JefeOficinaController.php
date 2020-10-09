@@ -1,14 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\JefeOficina;
+use App\Models\Vacante;
+use App\Models\Departamento;
 class JefeOficinaController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:profesor');
+        $this->middleware('auth:jefeoficina');
     }
     /**
      * Display a listing of the resource.
@@ -17,7 +20,41 @@ class JefeOficinaController extends Controller
      */
     public function index()
     {
-        return view('JefeVinculacion.tarjetas');
+        $usuario=Auth::user();
+        return view('jefeoficina.home', compact('usuario'));
+    }
+
+    public function showVacantes()
+    {
+        $usuario=Auth::user();
+        $departamento=Auth::user()->departamento;
+        
+        $vacantes=Vacante::where('departamento', '=', $departamento)->get();
+
+
+        return view('jefeoficina.catalogo', compact('usuario', 'vacantes'));
+        // return view('jefeoficina.vacantes', compact('usuario'));
+    }
+    public function editVacante($idVacante)
+    {
+        $usuario=Auth::user();
+        $vacante=Vacante::find($idVacante);                 
+        $departamento=Departamento::findOrFail($vacante->departamento);
+        $vacante->nombreDepartamento=$departamento->nombre;
+        $departamentos=Departamento::all();
+        
+        return view('jefeoficina.editVacante', compact('usuario', 'vacante', 'departamentos'));
+    }
+    public function updateVacante(Request $request, $idVacante)
+    {
+
+        $vacante = Vacante::findOrFail($idVacante);
+        $vacante->empresa=$request->input('empresa');
+        $vacante->ArqWeb=$request->input('TecWeb');
+        $vacante->IngSof=$request->input('IngSof');
+        $vacante->SegInf=$request->input('SegInf');
+        $vacante->activa=$request->input('IngSof');
+        dd($vacante);
     }
 
     /**

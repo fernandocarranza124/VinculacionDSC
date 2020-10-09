@@ -27,8 +27,9 @@ class RedirectIfAuthenticated
                         return redirect()->route('profesor.home');
                     }
                     break;
-                case 'jefeoficina':
+                case 'jefeoficina':                
                     if(Auth::guard($guard)->check()){
+                        //dd($guard);
                         return redirect()->route('jefeoficina.home');
                     }
                     break;
@@ -40,7 +41,7 @@ class RedirectIfAuthenticated
                     break;
             }
         }
-
+//dd('$guards');
         return $next($request);
     }
 }

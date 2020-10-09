@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>RP - @yield('title')</title>
+    <title>RP - Inicio @yield('title')</title>
     
     <meta charset="utf-8">
     <meta name="robots" content="noindex">
@@ -45,13 +45,10 @@
                             <p class="text-center">Bienvenido al Sistema de Gestión de Residencias profesionales, por favor selecciona la opción de acuerdo a tus actividades.
                             </p> 
                             <br> 
-                            <div id="exTab1" class="container-fluid center"> 
+                            <div id="exTab1" class="container-fluid center" style="margin-left: 5rem;"> 
                                 <ul  class="nav nav-pills" style="background: white;">
                                     <li class="active">
                                         <a  href="#Inicio" data-toggle="tab">Inicio</a>
-                                    </li>
-                                    <li>
-                                        <a href="#Jefe" data-toggle="tab">Jefe de oficina Vinculacion</a>
                                     </li>
                                     <li>
                                         <a href="#Alumno" data-toggle="tab">Alumno</a>
@@ -59,12 +56,20 @@
                                     <li>
                                         <a href="#Profesor" data-toggle="tab">Profesor</a>
                                     </li>
+                                    <li>
+                                        <a href="#Jefe" data-toggle="tab">Jefe de oficina Vinculacion</a>
+                                    </li>
                                 </ul>    
                             </div>
 
                             <div class="panel-body text-center " style="height: fit-content; padding-bottom: 0px;">
                                 <div class="tab-content clearfix">
                                     <div class="tab-pane active" id="Inicio">
+                                        <h3>Cuentas registradas:</h3>
+                                        <strong>Jefe de oficina Vinculacion: </strong><p>Numero de control:03030303 Contraseña:3030</p>
+                                        <strong>Alumno: </strong><p>Numero de control:16121015 Contraseña:3434</p>
+                                        <strong>Profesor: </strong><p>Numero de control:01010101 Contraseña:123456789</p>
+
 
                                     </div>
                                     <div class="tab-pane" id="Jefe">

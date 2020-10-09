@@ -8,7 +8,9 @@
 <div class="body-container animated fadeIn">
     <div class="container-fluid">
         <br>
-        <div class="row">
+        
+
+            {{-- Modal que recibe todos los datos provenientes de los panels --}}
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -28,84 +30,85 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary btn-raised btn-sm">Postularme</button>
+                            <button type="button" class="btn btn-primary btn-raised btn-sm">Editar</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3 col-sm-offset-1">
+            {{-- Fin del modal --}}
+        <div class="row">
+
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    
+                </div>
+                <div class="btn-group" role="group">
+                    <div class="col-sm-10">
+                    <button type="button" class="btn btn-primary btn-raised btn-lg">Agregar vacante</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="col-sm-12"><h3>Vacantes disponibles</h3></div>
+        <div class="row">
+            {{-- Tarjetas  --}}
+            <div class="col-sm-1 "></div>
+            @foreach ($vacantes as $vacante)
+            <div class="col-sm-3 col-sm-offset-0">
                 <div class="panel panel-default" >
                     <div class="panel-heading">
                         <h3 class="panel-title text-center">
-                            Agile Development Design + Value
+                            {{$vacante->empresa}}
                         </h3>
                     </div>
+                    @php
+                    $especialidades="";
+                    @endphp
                     <div class="panel-body text-center vacante">
                         <div class="row">
                             <div class="col-12 justify-content-center align-self-center">
                                 <p class=" align-middle">
-                                    <span class="badge badge-secondary">Arquitectura web</span>
-                                    <span class="badge badge-secondary">Ingenieria de software</span>
+                                    {{$especialidades=""}}
+                                    @if($vacante->IngSoft)
+                                    @php
+                                    $especialidades=$especialidades.' Ingenieria de software';
+                                    @endphp
+                                    <span class="badge badge-secondary">Ingenieria de software</span>    
+                                    @endif
+                                    @if($vacante->SegInf)
+                                    <span class="badge badge-secondary">Seguridad informatica</span>    
+                                    @php
+                                    $especialidades=$especialidades.' Seguridad informatica';
+                                    @endphp
+                                    @endif
+                                    @if($vacante->ArqWeb)
+                                    <span class="badge badge-secondary">Tecnologias web</span>
+                                    @php
+                                    $especialidades=$especialidades.' Tecnologias web';
+                                    @endphp
+                                    @endif
                                 </p>
                             </div>
                         </div>       
                     </div>
+                    
                     <div class="panel-footer text-right">
-                        <button type="button" class="btn btn-primary btn-raised btn-sm" data-toggle="modal" data-target="#myModal" data-title="Agile Development Design + Value" data-tag="Arquitectura Web, Ingenieria de software" data-image="{{ URL::asset('img/residenciasEjemplo3.jpg')}}">
-                            Ver
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3 col-sm-offset-0">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title text-center">
-                            Secretaria de Desarrollo Economico de Michoacan
-                        </h3>
-                    </div>
-                    <div class="panel-body text-center vacante">
-                        <div class="row">
-                            <div class="col-12 " style="" >
-                                <p>
-                                    <span class="badge badge-info">Arquitectura web</span>
-                                    <span class="badge badge-primary">Ingenieria de software</span>
-                                    <span class="badge badge-secondary">Seguridad informatica</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-footer text-right">
-                        <button type="button" class="btn btn-primary btn-raised btn-sm" data-toggle="modal" data-target="#myModal" data-title="Secretaria de Desarrollo Economico de Michoacan" data-tag="Arquitectura Web, Ingenieria de software, Seguridad informatica" data-image="{{ URL::asset('img/residenciasEjemplo1.png') }}">
-                           Ver
-                       </button>
-                   </div>
-               </div>
-            </div>
-            <div class="col-sm-3 col-sm-offset-0">
-                <div class="panel panel-default ">
-            <div class="panel-heading">
-                <h3 class="panel-title text-center">
-                    Direccion de Tecnologias de la Informacion y Comunicaciones
-                </h3>
-            </div>
-            <div class="panel-body text-center vacante">
-                <div class="row">
 
-                    <div class="col-12 align-middle">
-                        <p>
-                            <span class="badge badge-info">Arquitectura web</span>
-                        </p>
+                            <button type="button" class="btn btn-primary btn-raised btn-sm" data-toggle="modal" data-target="#myModal" data-title="{{$vacante->empresa}}" data-tag="{{$especialidades}}" data-image="{{ URL::asset('img/'.$vacante->ruta)}}">
+                                Ver
+                            </button>
+                            <a class="btn btn-warning btn-raised btn-sm" href="{{route('jefeoficina.vacante.edit', $vacante->id)}}"> Editar</a>
+                            <a class="btn btn-danger btn-raised btn-sm" href="{{route('jefeoficina.vacante.edit', $vacante->id)}}"> 
+                                <i class="fa fa-trash" aria-hidden="true"></i>Borrar
+                            </a>
+                        
+
                     </div>
                 </div>
             </div>
-            <div class="panel-footer text-right">
-                <button type="button" class="btn btn-primary btn-raised btn-sm" data-toggle="modal" data-target="#myModal" data-title="Direccion de Tecnologias de la Informacion y Comunicaciones" data-tag="Arquitectura Web" data-image="{{ URL::asset('img/residenciasEjemplo2.jpg')}}">
-                   Ver
-               </button>
-           </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
@@ -141,4 +144,4 @@
 });
 });
 </script>
-    @endsection
+@endsection

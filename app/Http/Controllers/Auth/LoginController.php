@@ -33,7 +33,7 @@ class LoginController extends Controller
     {
         return 'noControl';
     }
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = "/alumno/index";
 
     /**
      * Create a new controller instance.

@@ -15,11 +15,10 @@ class CreateVacanteTable extends Migration
     {
         Schema::create('vacante', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->string('empresa');
             $table->boolean('ArqWeb');
             $table->boolean('IngSof');
             $table->boolean('SegInf');
-            $table->string('empresa');
             $table->char('telefono');
             $table->boolean('activa');
             $table->unsignedBigInteger('departamento');

@@ -49,6 +49,7 @@ class JefeOficinaLoginController extends Controller
      */
     public function login(Request $request)
     {
+        
         $this->validate($request, [
             'noControl' => 'required',
             'password' => 'required|min:1'
@@ -58,11 +59,13 @@ class JefeOficinaLoginController extends Controller
             'noControl' => $request->noControl,
             'password' => $request->password
         ];
-
+        
+        
         // Attempt to log the user in
-        if (Auth::guard('profesor')->attempt($credential, $request->member)){
+        if (Auth::guard('jefeoficina')->attempt($credential, $request->member)){
             // If login succesful, then redirect to their intended location
-            return redirect()->intended(route('jefe.home'));
+             
+            return redirect()->intended(route('jefeoficina.home'));
         }
         
         // If Unsuccessful, then redirect back to the login with the form data

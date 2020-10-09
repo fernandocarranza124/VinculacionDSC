@@ -20,7 +20,7 @@ class ProfesorController extends Controller
      */
     public function index()
     {
-        return view('JefeVinculacion.tarjetas');
+        return view('profesor.home');
     }
 
     /**
