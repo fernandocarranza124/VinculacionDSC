@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\JefeOficina;
 use App\Models\Vacante;
 use App\Models\Departamento;
+use Illuminate\Support\Facades\Storage;
 class JefeOficinaController extends Controller
 {
     public function __construct()
@@ -49,12 +50,31 @@ class JefeOficinaController extends Controller
     {
 
         $vacante = Vacante::findOrFail($idVacante);
+        if($request->input('IngSof')==null){            $vacante->IngSof="false";    
+        }else{            $vacante->IngSof=$request->input('IngSof');        }
+        if($request->input('TecWeb')==null){            $vacante->TecWeb="false";    
+        }else{            $vacante->TecWeb=$request->input('TecWeb');        }
+        if($request->input('SegInf')==null){            $vacante->SegInf="false";    
+        }else{            $vacante->SegInf=$request->input('SegInf');        }
+
         $vacante->empresa=$request->input('empresa');
-        $vacante->ArqWeb=$request->input('TecWeb');
-        $vacante->IngSof=$request->input('IngSof');
-        $vacante->SegInf=$request->input('SegInf');
-        $vacante->activa=$request->input('IngSof');
-        dd($vacante);
+        $vacante->telefono=$request->input('telefono');
+        $vacante->activa=$request->input('activa');
+        
+        if($request->input('ruta')!=null){
+            $vacante->ruta=$request->input('ruta');
+        }
+        if($request->file('archivo')!=null){
+            $archivos=$request->file('archivo');
+            foreach ($archivos as $archivo) {
+                $filename = $archivo->storeAs('','img/'.$vacante->ruta);
+            }
+        }
+
+        $vacante->save();
+        Storage::delete('img/examen.jpeg');
+
+        return redirect()->route('jefeoficina.vacantes');
     }
 
     /**

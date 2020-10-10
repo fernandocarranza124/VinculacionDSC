@@ -15,7 +15,7 @@ class Vacante extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'nombre', 'ArqWeb', 'IngSof', 'SrgInf', 'empresa', 'telefono', 'activa','departamento','ruta'
+        'id', 'TecWeb', 'IngSof', 'SrgInf', 'empresa', 'telefono', 'activa','departamento','ruta',
     ];
 
     /**

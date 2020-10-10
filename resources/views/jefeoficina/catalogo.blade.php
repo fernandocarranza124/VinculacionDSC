@@ -84,7 +84,7 @@
                             <div class="col-12 justify-content-center align-self-center">
                                 <p class=" align-middle">
                                     {{$especialidades=""}}
-                                    @if($vacante->IngSoft)
+                                    @if($vacante->IngSof)
                                     @php
                                     $especialidades=$especialidades.' Ingenieria de software';
                                     @endphp
