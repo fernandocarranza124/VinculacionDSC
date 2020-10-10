@@ -3,6 +3,7 @@
         <title>RP - @yield('title')</title>
     
         <meta charset="utf-8">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="robots" content="noindex">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
         <meta name="csrf-token" content="RbyrPE1mjVDnv0ye6pKdYR9LbrZYHsG6qTre5i0n">
@@ -15,6 +16,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/bootstrap.css') }}" >
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+         <script src="{{ asset('js/app.js') }}" defer></script>
 
         <!-- Styles -->
     
@@ -43,9 +45,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{{ route('logout') }}">
-                                            Cerrar sesión
-                                        </a>
+                                         <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Cerrar sesion') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                                     </li>
                                 </ul>
                             </li>
