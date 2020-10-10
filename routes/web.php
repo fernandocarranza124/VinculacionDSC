@@ -48,7 +48,10 @@ Route::post('profesor/login', [App\Http\Controllers\AuthProfesor\ProfesorLoginCo
 // RUTAS JEFE DE OFICINA
 Route::get('jefeoficina/index', [App\Http\Controllers\JefeOficinaController::class, 'index'])->name('jefeoficina.home');
 Route::get('jefeoficina/vacantes/show', [App\Http\Controllers\JefeOficinaController::class, 'showVacantes'])->name('jefeoficina.vacantes');
+Route::get('jefeoficina/vacantes/create', [App\Http\Controllers\JefeOficinaController::class, 'createVacante'])->name('jefeoficina.vacante.create');
+Route::post('jefeoficina/vacantes/store', [App\Http\Controllers\JefeOficinaController::class, 'storeVacante'])->name('jefeoficina.vacante.store');
 Route::get('jefeoficina/vacantes/edit/{id}', [App\Http\Controllers\JefeOficinaController::class, 'editVacante'])->name('jefeoficina.vacante.edit');
+Route::get('jefeoficina/vacantes/delete/{id}', [App\Http\Controllers\JefeOficinaController::class, 'deleteVacante'])->name('jefeoficina.vacante.delete');
 Route::post('jefeoficina/vacantes/update/{id}', [App\Http\Controllers\JefeOficinaController::class, 'updateVacante'])->name('jefeoficina.vacante.update');
 
 

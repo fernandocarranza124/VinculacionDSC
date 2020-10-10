@@ -57,7 +57,9 @@
                 </div>
                 <div class="btn-group" role="group">
                     <div class="col-sm-10">
-                    <button type="button" class="btn btn-primary btn-raised btn-lg">Agregar vacante</button>
+                        <a href="{{route('jefeoficina.vacante.create')}}">
+                            <button type="button" class="btn btn-primary btn-raised btn-lg">Agregar vacante</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -67,9 +69,26 @@
         <div class="col-sm-12"><h3>Vacantes disponibles</h3></div>
         <div class="row">
             {{-- Tarjetas  --}}
-            <div class="col-sm-1 "></div>
+            {{-- <div class="col-sm-1 "></div> --}}
+            @php
+            $contador=0;
+            $bandera=0;
+            @endphp
             @foreach ($vacantes as $vacante)
-            <div class="col-sm-3 col-sm-offset-0">
+
+            @php
+            $contador=$contador+1;
+                if ($contador==1) {
+                    echo '<div class="row">';
+                    echo '<div class="col-sm-3 col-sm-offset-1">';        
+                }else if ($contador==3) {
+                    $contador=0;
+                    echo '<div class="col-sm-3 col-sm-offset-0">';
+                }else{
+                    echo '<div class="col-sm-3 col-sm-offset-0">';
+                }
+            @endphp
+            
                 <div class="panel panel-default" >
                     <div class="panel-heading">
                         <h3 class="panel-title text-center">
@@ -113,7 +132,7 @@
                                 Ver
                             </button>
                             <a class="btn btn-warning btn-raised btn-sm" href="{{route('jefeoficina.vacante.edit', $vacante->id)}}"> Editar</a>
-                            <a class="btn btn-danger btn-raised btn-sm" href="{{route('jefeoficina.vacante.edit', $vacante->id)}}"> 
+                            <a class="btn btn-danger btn-raised btn-sm" href="{{route('jefeoficina.vacante.delete', $vacante->id)}}"> 
                                 <i class="fa fa-trash" aria-hidden="true"></i>Borrar
                             </a>
                         
@@ -121,7 +140,16 @@
                     </div>
                 </div>
             </div>
+            @php
+            if ($contador==3) {
+                    echo '<div class="col-sm-2"></div>';
+                    echo '</div>';        
+                }
+            
+            @endphp
+
             @endforeach
+            </div>
         </div>
     </div>
 </div>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\File; 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -36,6 +37,49 @@ class JefeOficinaController extends Controller
         return view('jefeoficina.catalogo', compact('usuario', 'vacantes'));
         // return view('jefeoficina.vacantes', compact('usuario'));
     }
+    public function createVacante()
+    {   
+        $usuario=Auth::user();
+        $departamentos=Departamento::all();
+        return view('jefeoficina.createVacante', compact('usuario','departamentos'));
+    }
+    public function storeVacante(Request $request)
+    {
+        $vacante=new Vacante;
+        $vacante->empresa=$request->input('empresa');
+        $vacante->telefono=$request->input('telefono');
+        $vacante->activa=$request->input('activa');
+        $vacante->departamento=$request->input('departamento');        
+        if($request->input('IngSof')==null){            $vacante->IngSof="false";    
+        }else{            $vacante->IngSof=$request->input('IngSof');        }
+        if($request->input('TecWeb')==null){            $vacante->TecWeb="false";    
+        }else{            $vacante->TecWeb=$request->input('TecWeb');        }
+        if($request->input('SegInf')==null){            $vacante->SegInf="false";    
+        }else{            $vacante->SegInf=$request->input('SegInf');        }
+        if($request->input('ruta')!=null){
+            $vacante->ruta=$request->input('ruta');
+        }
+        if($request->file('archivo')!=null){
+            $archivos=$request->file('archivo');
+            foreach ($archivos as $archivo) {
+                $filename = $archivo->storeAs('','img/'.$vacante->ruta);
+            }
+        }
+        $vacante->save();
+        return redirect()->route('jefeoficina.vacantes');
+        
+    }
+
+    public function deleteVacante($idVacante)
+    {
+        $vacante=Vacante::find($idVacante);                 
+        $vacante->delete();
+        if($vacante->ruta!="Vacantedefault.png"){
+        File::delete('img/'.$vacante->ruta);}
+        
+        return redirect()->route('jefeoficina.vacantes');
+    }
+
     public function editVacante($idVacante)
     {
         $usuario=Auth::user();
