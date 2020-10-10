@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumno;
+use App\Models\Carrera;
+use App\Models\Departamento;
+use App\Models\Vacante;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -19,8 +22,19 @@ class AlumnoController extends Controller
 
 
     public function index()
+    {   
+        $usuario=Auth::user();
+        return view('alumno.home', compact('usuario'));
+    }
+    public function showVacantes()
     {
-        return view('alumno.home');
+        $usuario=Auth::user();
+        $carreraUsuario=Auth::user()->carrera;
+        
+        $carrera=Carrera::where('id', $carreraUsuario)->first();
+        $departamento=Departamento::findOrFail($carrera->departamento);
+        $vacantes=Vacante::where('departamento', '=', $departamento->id)->get();
+        return view('alumno.catalogo', compact('usuario', 'vacantes'));
     }
 
     /**

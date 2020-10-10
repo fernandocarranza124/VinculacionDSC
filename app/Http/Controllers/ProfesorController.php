@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Profesor;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 class ProfesorController extends Controller
 {
 
@@ -19,8 +20,9 @@ class ProfesorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('profesor.home');
+    {   
+        $usuario=Auth::user();
+        return view('profesor.home', compact('usuario'));
     }
 
     /**

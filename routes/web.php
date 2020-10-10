@@ -17,20 +17,19 @@ use App\Http\Controllers\Jefe\ProfesorLoginController;
 Route::get('/', function () {
     return view('index');
 })->name('index');
-Route::get('/catalogo', function () {
-    return view('catalogo');
-});
 
 
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', function () {
+    return redirect()->route('alumno.home');
+})->name('home');
 
 
 // RUTAS ALUMNO
-Route::get('/alumno/index', [App\Http\Controllers\AlumnoController::class, 'index'])->name('alumno.home');
-
+Route::get('alumno/index', [App\Http\Controllers\AlumnoController::class, 'index'])->name('alumno.home');
+Route::get('alumno/vacantes/show', [App\Http\Controllers\AlumnoController::class, 'showVacantes'])->name('alumno.vacantes');
 //
 //
 //
