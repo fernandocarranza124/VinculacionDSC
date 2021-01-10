@@ -67,14 +67,14 @@
                 <div class="sidebar-outer">
                     <div class="side-menu">
                         <div class="item">
-                            <a href="{{route('jefeoficina.home')}}" class="item-dropdown">
+                            <a href="{{route('profesor.home')}}" class="item-dropdown">
                                 <i class="fa  fa-chevron-circle-right ">
                                 </i>
                                 Inicio
                             </a>
                         </div>
                         <div class="item">
-                            <a href="#" class="item-dropdown">
+                            <a href="{{route('profesor.consulta.residentes')}}" class="item-dropdown">
                                 <i class="fa  fa-folder "></i>
                                 Residencias profesionales
                             </a>

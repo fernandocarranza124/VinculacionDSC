@@ -16,6 +16,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/bootstrap.css') }}" >
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+        
+
          <script src="{{ asset('js/app.js') }}" defer></script>
 
         <!-- Styles -->
@@ -81,9 +83,15 @@
                             </a>
                         </div>
                         <div class="item">
-                            <a href="https://morelia.tecsge.com/alumnos/cursos/principal" class="item-dropdown">
+                            <a href="{{route('jefeoficina.expedientes')}}" class="item-dropdown">
                                 <i class="fa  fa-folder "></i>
                                 Expedientes
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="{{route('jefeoficina.show.documentos')}}" class="item-dropdown">
+                                <i class="fa  fa-file "></i>
+                                Administrar documentos
                             </a>
                         </div>
                     </div>
@@ -94,4 +102,5 @@
             @yield('content')
         </div>
     </body>
+    
 </html>

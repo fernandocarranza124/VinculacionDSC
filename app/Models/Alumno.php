@@ -17,7 +17,7 @@ protected $table = 'alumno';
      * @var array
      */
     protected $fillable = [
-        'noControl', 'nombre', 'apellidoPaterno', 'apellidoMaterno', 'semestre', 'carrera', 'correoElectronico', 'correoElectronicoTecNM', 'especialidad', 'sexo', 
+        'noControl', 'nombre', 'apellidoPaterno', 'apellidoMaterno', 'semestre', 'carrera', 'correoElectronico', 'correoElectronicoTecNM', 'especialidad', 'sexo','domicilio', 'telefono', 'segurosocial', 'seguroextra', 'numeroseguroextra' 
     ];
 
     /**

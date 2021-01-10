@@ -81,17 +81,27 @@
                             </a>
                         </div>
                         <div class="item">
-                            <a href="https://morelia.tecsge.com/alumnos/cursos/principal" class="item-dropdown">
+                            <a href="{{route('alumno.showExpediente')}}" class="item-dropdown">
                                 <i class="fa  fa-folder "></i>
                                 Residencias profesionales
                             </a>
                         </div>
+                        <div class="item">
+                            <a href="#collapse-4" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-4" class="item-dropdown">
+                                <i class="fa  fa-chevron-circle-right "></i> Periodo actual
+                            </a> 
+                                <div class="item">
+                                    <a href="{{route('alumno.solicitudRP')}}" class="item-dropdown">Solicitud de residencias profesionales</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                
             </aside>
 
             <div class="container">
             @yield('content')
         </div>
+
     </body>
 </html>

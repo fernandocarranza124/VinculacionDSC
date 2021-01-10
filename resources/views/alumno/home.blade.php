@@ -1,6 +1,6 @@
 @extends('layouts.alumno')
 
-@section('title', 'Jefe de Proyecto Vinculacion')
+@section('title', 'Alumno')
 
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
