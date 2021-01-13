@@ -14,11 +14,7 @@ class AddDocumentacionToExpediente extends Migration
     public function up()
     {
         Schema::table('expediente', function (Blueprint $table) {
-            $table->string('solicitudResidenciasProfesionales')->nullable();
-            $table->string('cartaResponsiva')->nullable();
-            $table->string('constanciaActividadesComplementarias')->nullable();
-            $table->string('constanciaServicioSocial')->nullable();
-            $table->string('bosquejoResidente')->nullable();
+            
         });
     }
 

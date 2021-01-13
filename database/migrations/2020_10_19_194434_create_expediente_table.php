@@ -16,14 +16,14 @@ class CreateExpedienteTable extends Migration
         Schema::create('expediente', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('alumno');
-            $table->string('tipoSeguroExtra');
-            $table->char('numeroSeguroExtra', 20);
-            $table->unsignedBigInteger('asesorInterno');
+            $table->string('tipoSeguroExtra')->nullable();
+            $table->char('numeroSeguroExtra', 20)->nullable();
+            $table->unsignedBigInteger('asesorInterno')->nullable();
             $table->unsignedBigInteger('periodo');
             $table->string('nombreProyecto');
             $table->string('opcion');
             $table->string('nombreEmpresa');
-            $table->string('rfcEmpresa');
+            $table->string('rfcEmpresa')->nullable();
             $table->string('giroEmpresa');
             $table->string('calleEmpresa');
             $table->string('coloniaEmpresa');
@@ -34,8 +34,8 @@ class CreateExpedienteTable extends Migration
             $table->string('puestoTitularEmpresa');
             $table->string('asesorExterno');
             $table->string('puestoAsesorExterno');
-            $table->string('nombreIntermediarioEmpresa');
-            $table->string('puestoIntermediarioEmpresa');
+            $table->string('nombreIntermediarioEmpresa')->nullable();
+            $table->string('puestoIntermediarioEmpresa')->nullable();
             $table->string('misionEmpresa');
             $table->foreign('alumno')->references('id')->on('alumno')->constrained()
                 ->onDelete('cascade');
