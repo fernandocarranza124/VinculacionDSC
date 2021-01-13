@@ -147,8 +147,9 @@ class AlumnoController extends Controller
         $documentosPendiente=documento_pivote::where('expediente',$expediente->id)->where('autorizado',0)->get();
         $documentosRevision=documento_pivote::where('expediente',$expediente->id)->where('autorizado',1)->get();
         $documentosAutorizado=documento_pivote::where('expediente',$expediente->id)->where('autorizado',2)->get();
+        $documentosRegistrados=documento::all();
 
-        return view('alumno.expediente', compact('usuario','expediente','comentarios','documentosPendiente','documentosRevision', 'documentosAutorizado'));
+        return view('alumno.expediente', compact('usuario','expediente','comentarios','documentosPendiente','documentosRevision', 'documentosAutorizado','documentosRegistrados'));
     }
     public function obtieneFecha($fecha)
     {
@@ -172,7 +173,7 @@ class AlumnoController extends Controller
         $nombreCompleto=$usuario->nombre.' '.$usuario->apellidoPaterno.' '.$usuario->apellidoMaterno;
         $comentario=new Comentario;
 
-        if ($request->documento==null) {
+        if ($request->menuDocumentos==null) {
             $comentario->documento=0;
         }else{
             $comentario->documento=$request->menuDocumentos;
@@ -193,8 +194,10 @@ class AlumnoController extends Controller
     public static function mostrarComentarios($idExpediente)
     {
         $comentarios=Comentario::where('expediente','=',$idExpediente)
+                    ->leftjoin('documento','comentario.documento','=','documento.id')
                     ->orderBy('created_at', 'desc')
-                    ->get();
+                    ->get(['comentario.*','documento.nombre as nombreDocumento', 'documento.link as link']);
+                    
         return $comentarios;
     }
     public function agregarCarpeta(Request $request)

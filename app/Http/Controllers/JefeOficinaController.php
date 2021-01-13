@@ -17,6 +17,8 @@ use App\Models\Comentario;
 use App\Models\Registro;
 use App\Models\documento;
 use App\Models\documento_pivote;
+use PDF;
+use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Storage;
 class JefeOficinaController extends Controller
@@ -194,7 +196,11 @@ class JefeOficinaController extends Controller
         $documentosPendiente=documento_pivote::where('expediente',$expediente->id)->where('autorizado',0)->get();
         $documentosRevision=documento_pivote::where('expediente',$expediente->id)->where('autorizado',1)->get();
         $documentosAutorizado=documento_pivote::where('expediente',$expediente->id)->where('autorizado',2)->get();
-        return view('jefeoficina.expediente', compact('usuario','expediente','profesores','comentarios','registros','documentosAutorizado','documentosRevision','documentosPendiente'));
+        $documentosRegistrados=documento::all();
+
+
+
+        return view('jefeoficina.expediente', compact('usuario','expediente','profesores','comentarios','registros','documentosAutorizado','documentosRevision','documentosPendiente','documentosRegistrados'));
     }
     public function asignarAsesor(Request $request)
     {
@@ -217,8 +223,7 @@ class JefeOficinaController extends Controller
         $usuario=Auth::user();
         $nombreCompleto=$usuario->nombre.' '.$usuario->apellidoPaterno.' '.$usuario->apellidoMaterno;
         $comentario=new Comentario;
-
-        if ($request->documento==null) {
+        if ($request->menuDocumentos==null) {
             $comentario->documento=0;
         }else{
             $comentario->documento=$request->menuDocumentos;
@@ -235,12 +240,22 @@ class JefeOficinaController extends Controller
         $comentario=Comentario::latest()->first();
         return redirect('jefeoficina/expedientes/ver/'.$request->expediente.'');
     }
+    public function eliminarComentario(Request $request)
+    {
+        
+        $comentario = Comentario::find($request->idComentario);
+        $comentario->delete();
+        return redirect('jefeoficina/expedientes/ver/'.$request->idExpediente.'');   
+
+    }
 
     public static function mostrarComentarios($idExpediente)
     {
         $comentarios=Comentario::where('expediente','=',$idExpediente)
+                    ->leftjoin('documento','comentario.documento','=','documento.id')
                     ->orderBy('created_at', 'desc')
-                    ->get();
+                    ->get(['comentario.*','documento.nombre as nombreDocumento', 'documento.link as link']);
+                    
         return $comentarios;
     }
 
@@ -272,6 +287,149 @@ class JefeOficinaController extends Controller
         $documento_pivote->autorizado = 2;
         $documento_pivote->save();
         return redirect('jefeoficina/expedientes/ver/'.$request->idExpediente.'');
+    }
+
+    public function generarDocumento(Request $request)
+    {
+        $opcion = $request->menuGenerar;
+        
+        switch ($opcion) {
+            case '1':
+                $usuario=Auth::user();
+                $documentos=documento::all();
+                $expediente=Expediente::findOrFail($request->idExpediente);
+
+                $alumno=Alumno::findOrFail($expediente->alumno);
+
+                $carrera=Carrera::findOrFail($alumno->carrera);
+                $fecha=Carbon::now();
+                $fecha->toDateString();
+
+                $fecha = substr($fecha, 0, -8);
+                $nuevaFecha=substr($fecha, 8, 2).'/'.self::numeroMes(substr($fecha, 5, 2)).'/'.(substr($fecha, 0, 4));
+                $Year=substr($fecha, 0, 4);
+
+                $departamento=Departamento::findOrFail($carrera->departamento);
+
+
+
+                $Folio=$request->idFolio;
+                $asesorExterno=$expediente->asesorExterno;
+                $puestoAsesorExterno=$expediente->puestoAsesorExterno;
+                $Empresa=$expediente->nombreEmpresa;
+                $Alumno=$alumno->nombre.' '.$alumno->apellidoPaterno.' '.$alumno->apellidoMaterno;
+                $numeroControl=$alumno->noControl;
+                $carreraAlumno=$carrera->nombre;
+                $departamentoAlumno=$departamento->nombre;
+                $seguroSocial=$alumno->seguroSocial;
+                $fechaActual=$nuevaFecha;
+                $pdf = PDF::loadView('jefeoficina.formatos.cartaPresentacion', compact('Folio','asesorExterno','puestoAsesorExterno','Empresa','Alumno', 'numeroControl','carreraAlumno','departamentoAlumno','seguroSocial','fechaActual','Year'))->setOptions(['defaultFont' => 'sans-serif']); 
+                $nombreArchivo = $numeroControl.' Carta de presentacion de estudiante.pdf';
+                return $pdf->download($nombreArchivo);
+                break;
+            case '2':
+                $Folio=$request->idFolio;
+                $expediente=Expediente::findOrFail($request->idExpediente);
+                $Profesor=Profesor::findOrFail($expediente->asesorInterno);
+                $alumno=Alumno::findOrFail($expediente->alumno);
+                $fecha=Carbon::now();
+                $fecha->toDateString();
+
+                $fecha = substr($fecha, 0, -8);
+                $nuevaFecha=substr($fecha, 8, 2).'/'.self::numeroMes(substr($fecha, 5, 2)).'/'.(substr($fecha, 0, 4));
+
+                $asesorInterno=$Profesor->nombre.' '.$Profesor->apellidoPaterno.' '.$Profesor->apellidoMaterno;
+                $carrera=Carrera::findOrFail($alumno->carrera);
+
+                $periodo = substr($expediente->fechaInicio, 0, -9); 
+                $nuevoPeriodo=substr($periodo, 8, 2).'/'.self::numeroMes(substr($periodo, 5, 2)).'/'.(substr($periodo, 0, 4));
+                $Year=substr($fecha, 0, 4);       
+                // dd($nuevoPeriodo);
+                $fechaActual=$nuevaFecha;
+                $Alumno=$alumno->nombre.' '.$alumno->apellidoPaterno.' '.$alumno->apellidoMaterno;
+                $carreraAlumno=$carrera->nombre;
+                $proyecto=$expediente->nombreProyecto;
+                $periodoRealizacion = $nuevoPeriodo;
+                $Empresa=$expediente->nombreEmpresa;
+                $departamento=Departamento::findOrFail($carrera->departamento);
+                // Hoja 2
+                $asesorExterno=$expediente->asesorExterno;
+                $puestoAsesorExterno=$expediente->puestoAsesorExterno;
+                $Empresa=$expediente->nombreEmpresa;
+                $contacto=$expediente->telefonoEmpresa;
+                $numeroControl=$alumno->noControl;
+                $departamentoAlumno=$departamento->nombre;
+                $correoAlumno = $alumno->correoTecNMAlumno;
+
+                $telefonoAlumno = $alumno->telefono;
+                $pdf = PDF::loadView('jefeoficina.formatos.asignacion', compact('Folio','asesorInterno','asesorExterno','puestoAsesorExterno','Empresa','Alumno', 'numeroControl','carreraAlumno','departamentoAlumno','fechaActual','Year','proyecto','periodoRealizacion','correoAlumno', 'telefonoAlumno'))->setOptions(['defaultFont' => 'sans-serif']); 
+                $nombreArchivo ="Carta de asignacion de asesor - ".$numeroControl.".pdf";
+                
+                return $pdf->download($nombreArchivo);
+                break;
+            case '3':
+                # code...
+                break;
+            case '4':
+                # code...
+                break;
+            case '5':
+                # code...
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+
+
+        
+        
+    }
+    public function numeroMes($mes)
+    {
+        switch ($mes) {
+            case '1':
+                return "Enero";
+                break;
+            case '2':
+                return "Febrero";
+                break;
+            case '3':
+                return "Marzo";
+                break;
+            case '4':
+                return "Abril";
+                break;
+            case '5':
+                return "Mayo";
+                break;
+            case '6':
+                return "Junio";
+                break;
+            case '7':
+                return "Julio";
+                break;
+            case '8':
+                return "Agosto";
+                break;
+            case '9':
+                return "Septiembre";
+                break;
+            case '10':
+                return "Octubre";
+                break;
+            case '11':
+                return "Noviembre";
+                break;
+            case '12':
+                return "Diciembre";
+                break;
+            
+            default:
+                return $mes;
+                break;
+        }
     }
 
     /**

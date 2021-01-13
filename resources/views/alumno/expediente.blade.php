@@ -186,6 +186,7 @@
                             </div>
                         </div>
                     </div>  
+
                     {{-- Tarjetas unidas apiladas --}}
                     <div class="col-md-9 col-sm-8" style="text-align: left; ">
                         {{-- Tarjeta de Datos de proeycto --}}
@@ -339,7 +340,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane active" id="Comentarios">
+            <div class="tab-pane" id="Comentarios">
                     <div class="container-fluid" style="overflow-y: scroll;">
                         <div class="row">
                             <div class="col-md-8">
@@ -366,7 +367,8 @@
                                                                 @if ($comentario->documento==0)
                                                                     <h6 class="text-muted">Documento citado: ninguno</h6>
                                                                 @else
-                                                                    <h6>Documento citado: {{$comentario->documento}}</h6>
+                                                                    <h6>Documento citado: {{$comentario->nombreDocumento}}
+                                                         </h6>
                                                                 @endif
                                                                 <small style="color: gray;">Fecha de creacion: <i>{{$comentario->created_at}}</i></small>
                                                             </div>
@@ -416,8 +418,9 @@
                                                         <div class="col-sm-6">
                                                             <select name="menuDocumentos" id="menuDocumentos" class="" style="width: 100%; margin-top: 1rem;"  >
                                                                 <option value="null" selected="" > ---- </option>
-                                                                <option value="1">Carta tal</option>
-                                                                option
+                                                                @foreach ($documentosRegistrados as $documento)
+                                                                <option value="{{$documento->id}}">{{$documento->nombre}}</option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                     </div>

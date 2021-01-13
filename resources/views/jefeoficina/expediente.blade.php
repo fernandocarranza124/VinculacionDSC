@@ -232,100 +232,174 @@
                 </div>
                 
                 <div class="tab-pane " id="Documentos">
-                    <div class="col-md-4 col-sm-4" style="">
-                        <div class="panel panel-default panel-documentos" style="overflow-y: scroll;" >
-                            <div class="panel-heading pendientes" style="">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4" style="">
+                            <div class="panel panel-default panel-documentos" style="overflow-y: scroll;" >
+                                <div class="panel-heading pendientes" style="">
+                                    <h3 class="panel-title text-center">
+                                        Pendientes por subir
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>
+                                    @foreach ($documentosPendiente as $documento)
+                                        <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row" style="box-shadow: inset 0 -5px 0 rgba(153, 153, 153, 0.2);">
+                                                <div class="col-sm-3 col-xs-3 col-md-4 col-lg-3" >
+                                                    <img src="../../../img/pdfDocumentos.png" class="iconPDF" >
+                                                </div>
+                                                <div class="col-sm-9 col-xs-8 col-md-8 col-lg-9" >
+                                                    <p  class="text-left" style="font-size: 1.5rem;">{{$documento->documento}}</p>
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    @endforeach
+                                    
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4" style="">
+                        <div class="panel panel-default panel-documentos">
+                            <div class="panel-heading revision" >
                                 <h3 class="panel-title text-center">
-                                    Pendientes por subir
+                                    En proceso de revision
                                 </h3>
                             </div>
                             <div class="panel-body">
-                                <div>
-                                @foreach ($documentosPendiente as $documento)
-                                    <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="row" style="box-shadow: inset 0 -5px 0 rgba(153, 153, 153, 0.2);">
-                                            <div class="col-sm-3 col-xs-3 col-md-4 col-lg-3" >
-                                                <img src="../../../img/pdfDocumentos.png" class="iconPDF" >
+                                @foreach ($documentosRevision as $documento)
+                                        <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row" style="box-shadow: inset 0 -5px 0 rgba(153, 153, 153, 0.2);">
+                                                <div class="col-sm-3 col-xs-3 col-md-4 col-lg-2" >
+                                                    <img src="../../../img/pdfDocumentos.png" class="iconPDF" >
+                                                </div>
+                                                <div class="col-sm-9 col-xs-8 col-md-8 col-lg-6" >
+                                                    <p  class="text-left" style="font-size: 1.5rem;">{{$documento->documento}}</p>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-4 padding-sides-none" >
+                                                    <a href="{{$expediente->Nube}}" name="file" id="file" class="btn btn-info btn-raised btn-sm" target="_blank" style="width: 100%;">Ver</a>
+                                                    <form action="{{route('jefeoficina.expediente.documento.aprobar')}}" method="post" accept-charset="utf-8">
+                                                        @csrf    
+                                                        <button type="submit" class="btn btn-primary btn-raised btn-sm" style="width: 100%;">Aprobar</a> </button> 
+                                                        <input type="hidden" name="idExpediente" id="idcarpetaNube" class="form-control" value="{{$expediente->id}}">
+                                                        <input type="hidden" name="idDocumento"  class="form-control" value="{{$documento->id}}">   
+                                                    </form>
+                                                    
+                                                    
+                                                </div>
                                             </div>
-                                            <div class="col-sm-9 col-xs-8 col-md-8 col-lg-9" >
-                                                <p  class="text-left" style="font-size: 1.5rem;">{{$documento->documento}}</p>
-                                            </div>
-                                            
-                                            
                                         </div>
+                                    </div> 
+                                    @endforeach
+                                <br> 
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4" >
+                        <div class="panel panel-default panel-documentos">
+                            <div class="panel-heading aprobados" >
+                                <h3 class="panel-title text-center">
+                                    Documentos aprobados
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                @foreach ($documentosAutorizado as $documento)
+                                        <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row" style="box-shadow: inset 0 -5px 0 rgba(153, 153, 153, 0.2);">
+                                                <div class="col-sm-3 col-xs-3 col-md-4 col-lg-2" >
+                                                    <img src="../../../img/pdfDocumentos.png" class="iconPDF" >
+                                                </div>
+                                                <div class="col-sm-9 col-xs-8 col-md-8 col-lg-6" >
+                                                    <p  class="text-left" style="font-size: 1.5rem;">{{$documento->documento}}</p>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-4 padding-sides-none" >
+                                                    <a href="{{$expediente->Nube}}" name="file" id="file" class="btn btn-info btn-raised btn-sm" target="_blank" style="width: 100%;">Ver</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    @endforeach
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12" style="">
+                            <div class="panel panel-default panel-documentos" style="overflow-y: scroll;" >
+                                <div class="panel-heading pendientes" style="">
+                                    <h3 class="panel-title text-center">
+                                        Generar documentos
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>
+                                        <h4>A continuacion se muestran los documentos que se pueden generar
+                                            <br><br>
+                                        <small>Una vez seleccionado, inserte los datos correspondientes para la creacion del archivo</small>
+                                        </h4>
+                                        <form action="{{route('jefeoficina.generar.documento')}}" method="post" accept-charset="utf-8">
+                                            @csrf
+                                            
+                                            
+                                        
+                                    <select id="menuGenerar" class="selectpicker form-control" data-live-search="true" name="menuGenerar" onchange="cambiarCampos()">
+                                        <option value="null" selected=""  disabled="">Selecciona un documento </option>
+                                        <option value="1"><strong>Carta de presentacion del estudiante</strong></option>
+                                        <option value="2">Carta de asignacion de asesor interno</option>
+                                        <option value="3">Revision de informe</option>
+                                        <option value="4">Constancia de cumplimiento</option>
+                                        <option value="5">Carta de acreditacion de residencia profesional</option>
+                                    </select>
+                                    <input type="hidden" name="idExpediente" value="{{$expediente->id}}">
+                                    <div class="col-sm-12" id="agregarCampos">
+                                        
                                     </div>
-                                </div> 
-                                @endforeach
-                                
-                                
+                                    </form>
+                                    <script type="text/javascript" charset="utf-8">
+                                           function cambiarCampos() {
+                                               var selectInput = document.getElementById('menuGenerar');
+                                               // alert(selectInput.options[selectInput.selectedIndex].text);
+                                               var div = document.getElementById('agregarCampos');
+                                               // <div class="form-group label-floating">
+                                               var formControl = document.createElement('div')
+                                                formControl.setAttribute('class', "form-group label-floating");
+
+
+                                               var l = document.createElement("label"); //input element, text
+                                                l.setAttribute('for',"idFolio");
+                                                l.setAttribute('class',"control-label");
+                                                var text = document.createTextNode("Ingresa el folio que se mostrará en el documento generado");
+                                                l.appendChild(text);
+
+                                               var i = document.createElement("input"); //input element, text
+                                                i.setAttribute('type',"text");
+                                                i.setAttribute('name',"idFolio"); 
+                                                i.setAttribute('id',"idFolio"); 
+                                                i.setAttribute('class',"form-control");
+                                               
+                                               var button = document.createElement("input");
+                                                button.setAttribute('type', "submit");
+                                                button.setAttribute('class', "btn btn-primary btn-raised btn-sm");
+
+                                               formControl.appendChild(l);
+                                               formControl.appendChild(i);
+                                               div.appendChild(formControl);
+                                               div.appendChild(button);
+
+                                           }
+                                    </script>
+                                    
+                                    
+                                    </div>
                                 </div>
                             </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4" style="">
-                    <div class="panel panel-default panel-documentos">
-                        <div class="panel-heading revision" >
-                            <h3 class="panel-title text-center">
-                                En proceso de revision
-                            </h3>
-                        </div>
-                        <div class="panel-body">
-                            @foreach ($documentosRevision as $documento)
-                                    <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="row" style="box-shadow: inset 0 -5px 0 rgba(153, 153, 153, 0.2);">
-                                            <div class="col-sm-3 col-xs-3 col-md-4 col-lg-2" >
-                                                <img src="../../../img/pdfDocumentos.png" class="iconPDF" >
-                                            </div>
-                                            <div class="col-sm-9 col-xs-8 col-md-8 col-lg-6" >
-                                                <p  class="text-left" style="font-size: 1.5rem;">{{$documento->documento}}</p>
-                                            </div>
-                                            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-4 padding-sides-none" >
-                                                <a href="{{$expediente->Nube}}" name="file" id="file" class="btn btn-info btn-raised btn-sm" target="_blank" style="width: 100%;">Ver</a>
-                                                <form action="{{route('jefeoficina.expediente.documento.aprobar')}}" method="post" accept-charset="utf-8">
-                                                    @csrf    
-                                                    <button type="submit" class="btn btn-primary btn-raised btn-sm" style="width: 100%;">Aprobar</a> </button> 
-                                                    <input type="hidden" name="idExpediente" id="idcarpetaNube" class="form-control" value="{{$expediente->id}}">
-                                                    <input type="hidden" name="idDocumento"  class="form-control" value="{{$documento->id}}">   
-                                                </form>
-                                                
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> 
-                                @endforeach
-                            <br> 
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4" >
-                    <div class="panel panel-default panel-documentos">
-                        <div class="panel-heading aprobados" >
-                            <h3 class="panel-title text-center">
-                                Documentos aprobados
-                            </h3>
-                        </div>
-                        <div class="panel-body">
-                            @foreach ($documentosAutorizado as $documento)
-                                    <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="row" style="box-shadow: inset 0 -5px 0 rgba(153, 153, 153, 0.2);">
-                                            <div class="col-sm-3 col-xs-3 col-md-4 col-lg-2" >
-                                                <img src="../../../img/pdfDocumentos.png" class="iconPDF" >
-                                            </div>
-                                            <div class="col-sm-9 col-xs-8 col-md-8 col-lg-6" >
-                                                <p  class="text-left" style="font-size: 1.5rem;">{{$documento->documento}}</p>
-                                            </div>
-                                            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-4 padding-sides-none" >
-                                                <a href="{{$expediente->Nube}}" name="file" id="file" class="btn btn-info btn-raised btn-sm" target="_blank" style="width: 100%;">Ver</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> 
-                                @endforeach
-                        </div>
                     </div>
                 </div>
             </div>
@@ -356,13 +430,20 @@
                                                      @if ($comentario->documento==0)
                                                      <h6 class="text-muted">Documento citado: ninguno</h6>
                                                      @else
-                                                     <h6>Documento citado: {{$comentario->documento}}</h6>
+                                                     <h6>Documento citado: {{$comentario->nombreDocumento}}
+                                                         </h6>
                                                      @endif
                                                      <small style="color: gray;">Fecha de creacion: <i>{{$comentario->created_at}}</i></small>
                                                      <div class="text-right">
-                                                        <a href="" class="btn btn-danger btn-raised btn-sm">
+                                                        <form action="{{route('jefeoficina.expediente.comentario.eliminar')}}" method="post" accept-charset="utf-8">
+                                                        @csrf    
+                                                            <input type="hidden" name="idExpediente" value="{{$expediente->id}}" >
+                                                            <input type="hidden" name="idComentario" value="{{$comentario->id}}" >
+                                                            <button type="submit" class="btn btn-danger btn-raised btn-sm">
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
-                                                        </a>
+                                                        </button>    
+                                                        </form>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -411,8 +492,9 @@
                                                 <div class="col-sm-6">
                                                     <select name="menuDocumentos" id="menuDocumentos" class="" style="width: 100%; margin-top: 1rem;"  >
                                                         <option value="null" selected="" > ---- </option>
-                                                        <option value="1">Carta tal</option>
-                                                        option
+                                                        @foreach ($documentosRegistrados as $documento)
+                                                            <option value="{{$documento->id}}">{{$documento->nombre}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>

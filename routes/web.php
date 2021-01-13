@@ -72,11 +72,13 @@ Route::get('jefeoficina/login', [App\Http\Controllers\AuthJefeOficina\JefeOficin
 Route::post('jefeoficina/login', [App\Http\Controllers\AuthJefeOficina\JefeOficinaLoginController::class, 'login'])->name('jefeoficina.login.submit');
 Route::post('jefeoficina/expedientes/comentar', [App\Http\Controllers\JefeOficinaController::class, 'agregarComentario'])->name('jefeoficina.expediente.comentar');
 
+Route::post('jefeoficina/expedientes/comentario/eliminar', [App\Http\Controllers\JefeOficinaController::class, 'eliminarComentario'])->name('jefeoficina.expediente.comentario.eliminar');
+
 Route::get('jefeoficina/documentos/show', [App\Http\Controllers\JefeOficinaController::class, 'showDocumentos'])->name('jefeoficina.show.documentos');
 Route::get('jefeoficina/documentos/eliminar/{idDocumento}', [App\Http\Controllers\JefeOficinaController::class, 'deleteDocumentos'])->name('jefeoficina.delete.documento');
 Route::post('jefeoficina/documentos/store', [App\Http\Controllers\JefeOficinaController::class, 'storeDocumento'])->name('jefeoficina.documento.store');
 Route::post('jefeoficina/expedientes/aprobarDocumento', [App\Http\Controllers\JefeOficinaController::class, 'aprobarDocumento'])->name('jefeoficina.expediente.documento.aprobar');
-
+Route::post('jefeoficina/expedientes/generarDocumento', [App\Http\Controllers\JefeOficinaController::class, 'generarDocumento'])->name('jefeoficina.generar.documento');
 //
 //
 //
