@@ -18,6 +18,7 @@
         $intermedio=$desactivado;
         $final=$desactivado;
         switch ($expediente->estatus) {
+            // Apertura de expediente
             case '1':
             case '2':
             $apertura="";
@@ -26,6 +27,7 @@
             $intermedio=$desactivado;
             $final=$desactivado;
             break;
+            // Asesor asignado
             case '3':
             $apertura="";
             $asesor="";
@@ -33,6 +35,7 @@
             $intermedio=$desactivado;
             $final=$desactivado;
             break;
+            // Documentos aprobados
             case '4':
             $apertura="";
             $asesor="";
@@ -40,7 +43,11 @@
             $intermedio=$desactivado;
             $final=$desactivado;
             break;
+            // Documentos aprobados con modificaciones
             case '5':
+            case '6':
+            case '7':
+            case '8':
             $apertura="";
             $asesor="";
             $aprobados=$alerta;
@@ -48,8 +55,45 @@
             $final=$desactivado;
             $modificaciones="con modificaciones";
             break;
-            case '6':
-
+            // Reporte intermedio con modificaciones
+            case '9':
+            $apertura="";
+            $asesor="";
+            $aprobados="";
+            $intermedio=$alerta;
+            $final=$desactivado;
+            break;
+            // Reporte intermedio aprobado
+            case '10':
+            $apertura="";
+            $asesor="";
+            $aprobados="";
+            $intermedio="";
+            $final=$desactivado;
+            break;
+            // Reporte final aprobado
+            case '11':
+            $apertura="";
+            $asesor="";
+            $aprobados="";
+            $intermedio="";
+            $final="";
+            break;
+            // Reporte final aprobado con modificaciones
+            case '12':
+            $apertura="";
+            $asesor="";
+            $aprobados="";
+            $intermedio="";
+            $final=$alerta;
+            break;
+            // Residencias finalizadas
+            case '13':
+            $apertura="";
+            $asesor="";
+            $aprobados="";
+            $intermedio="";
+            $final="";
             break;
             
             default:
@@ -100,7 +144,41 @@
             </div>
         </div>
         <br>
-        
+        @if ($expediente->Nube == null)
+        <div class="col-sm-12 col-sm-offset-0">
+            <div class="panel panel-default" >
+                <div class="panel-body text-center vacante" style="height: fit-content; padding-bottom: 0px;">
+                    <div class="col-12 justify-content-center align-self-center">
+                        <div class="progeso-panel">
+                            <h5><strong> Si el alumno ya cumplió subiendo los archivos correspondientes a la primer fase, es posible actualizar el estado de su expediente. </strong></h5>
+                            <form action="{{route('jefeoficina.expediente.estatus.actualizar')}}" method="post" accept-charset="utf-8">
+                              @csrf
+                              <div class="form-group label-floating">
+                                <input type="hidden" name="idExpediente" id="idcarpetaNube" class="form-control" value="{{$expediente->id}}">
+                                <label for="carpetaNube" class="control-label">Seleccione la etapa en la que se encuentra el expediente</label> 
+                                <select id="menufases" class="selectpicker form-control" data-live-search="true" name="menufases" >
+                                        <option value="null" selected=""  disabled="">Fase actual </option>
+                                        <option value="1"><strong>Apertura de expediente</strong></option>
+                                        <option value="3">Asesor asignado</option>
+                                        <option value="4">Documentos aprobados</option>
+                                        <option value="5">Documentos aprobados con modificaciones</option>
+                                        <option value="10">Reporte intermedio aprobado</option>
+                                        <option value="9">Reporte intermedio aprobado con modificaciones</option>
+                                        <option value="11">Informe final aprobado</option>
+                                        <option value="12">Informe final aprobado con modificaciones</option>
+                                        <option value="13">Residencias profesionales finalizadas</option>
+                                    </select>
+                                <button type="submit" class="btn btn-primary btn-raised btn-sm">Guardar</button>
+                              </div>
+                            
+                            </form>
+                        </div>
+                    </div>
+                </div>        
+            </div>
+        </div>
+        <br>
+        @endif
         {{-- Tabulador por seccion --}}
         <div id="exTab1" class="container-fluid"> 
             <ul  class="nav nav-pills" style="background: white;">
@@ -546,9 +624,9 @@
                                                     <div class="col-sm-5">
                                                         <small style="color: gray;">Fecha de creacion: <i>{{$registro->created_at}}</i></small>
                                                         <div class="text-right">
-                                                            <a href="" class="btn btn-danger btn-raised btn-sm">
+                                                            {{-- <a href="" class="btn btn-danger btn-raised btn-sm">
                                                                 <i class="fa fa-trash" aria-hidden="true"></i>
-                                                            </a>
+                                                            </a> --}}
                                                         </div>
                                                     </div>
 

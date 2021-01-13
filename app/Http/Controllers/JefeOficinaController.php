@@ -140,11 +140,15 @@ class JefeOficinaController extends Controller
         
 
         $expedientes=Expediente::join('alumno','alumno.id','=','expediente.alumno')
+                        ->leftjoin('carrera', 'carrera.id','=','alumno.carrera')
+                        ->leftjoin('departamento','departamento.id','=','carrera.departamento')
                         ->leftjoin('profesor','profesor.id','=','expediente.asesorInterno')
+                        ->where('departamento.id','=',$usuario->departamento )
+                        // where('id','=',$expediente->idAlumno)
                         ->get(
-                            ['expediente.id','expediente.nombreProyecto','alumno.nombre','alumno.apellidoMaterno','alumno.apellidoPaterno','alumno.noControl','profesor.nombre as asesorNombre','profesor.apellidoPaterno as asesorApellidoPaterno','profesor.apellidoMaterno as asesorApellidoMaterno']
+                            ['expediente.id','expediente.nombreProyecto','alumno.nombre','alumno.apellidoMaterno','alumno.apellidoPaterno','alumno.noControl','profesor.nombre as asesorNombre','profesor.apellidoPaterno as asesorApellidoPaterno','profesor.apellidoMaterno as asesorApellidoMaterno','alumno.carrera as carreraAlumno']
                         );
-
+        
                     // dd($expedientes);
         
 
@@ -181,7 +185,9 @@ class JefeOficinaController extends Controller
         $carrera=Carrera::where('id', $carreraAlumno->carrera)->first();
         
         $expediente->nombreCarrera=$carrera->nombre;
-
+        $fecha=$expediente->created_at;
+        
+        $expediente->fechaInicio=self::obtieneFecha($fecha);
 
         $profesores=Profesor::where('departamento','=',$usuario->departamento)
                     ->get();
@@ -202,6 +208,21 @@ class JefeOficinaController extends Controller
 
         return view('jefeoficina.expediente', compact('usuario','expediente','profesores','comentarios','registros','documentosAutorizado','documentosRevision','documentosPendiente','documentosRegistrados'));
     }
+     public function obtieneFecha($fecha)
+    {
+        $fecha = substr($fecha, 0, 10);
+        $numeroDia = date('d', strtotime($fecha));
+        $dia = date('l', strtotime($fecha));
+        $mes = date('F', strtotime($fecha));
+        $anio = date('Y', strtotime($fecha));
+         $dias_ES = array("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo");
+        $dias_EN = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+        $nombredia = str_replace($dias_EN, $dias_ES, $dia);
+        $meses_ES = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+        $meses_EN = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+        $nombreMes = str_replace($meses_EN, $meses_ES, $mes);
+        return ($numeroDia.'/'.$nombreMes.'/'.$anio);
+    }
     public function asignarAsesor(Request $request)
     {
         $expediente=Expediente::findOrFail($request->input('idExpediente'));
@@ -211,7 +232,7 @@ class JefeOficinaController extends Controller
 
         $registro=new Registro;
         $registro->expediente=$request->input('idExpediente');
-        $registro->estatus=1;
+        $registro->estatus=3;
         $registro->save();
 
 
@@ -286,6 +307,12 @@ class JefeOficinaController extends Controller
         $documento_pivote = documento_pivote::where('id', $request->idDocumento)->first();
         $documento_pivote->autorizado = 2;
         $documento_pivote->save();
+
+        $registro=new Registro;
+        $registro->expediente=$request->idExpediente;
+        $registro->estatus=4;
+        $registro->save();
+
         return redirect('jefeoficina/expedientes/ver/'.$request->idExpediente.'');
     }
 
@@ -430,6 +457,61 @@ class JefeOficinaController extends Controller
                 return $mes;
                 break;
         }
+    }
+    public function actualizarEstado(Request $request)
+    {
+        $expediente=Expediente::findOrFail($request->idExpediente);
+        $expediente->estatus=$request->menufases;
+        
+
+        switch ($request->menufases) {
+            case '1':
+                $expediente->asesorInterno=null;
+                $documentos=documento_pivote::where('expediente','=',$request->idExpediente)->get();
+                foreach ($documentos as $documento) {
+                    $documento->autorizado=0;
+                    $documento->save();
+                }
+                $registros=Registro::where('expediente','=',$request->idExpediente)->get();
+                        
+                
+                break;
+            case '3':
+                $documentos=documento_pivote::where('expediente','=',$request->idExpediente)->get();
+                foreach ($documentos as $documento) {
+                    $documento->autorizado=0;
+                    $documento->save();
+                }
+                
+                break;
+            case '4':
+                
+                break;
+            case '5':
+                
+                break;
+            case '9':
+                
+                break;
+            case '10':
+                
+                break;
+            case '11':
+                
+                break;
+            case '12':
+                
+                break;
+            case '13':
+                
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        $expediente->save();
+        return redirect('jefeoficina/expedientes/ver/'.$request->idExpediente.'');
     }
 
     /**

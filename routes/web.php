@@ -79,6 +79,7 @@ Route::get('jefeoficina/documentos/eliminar/{idDocumento}', [App\Http\Controller
 Route::post('jefeoficina/documentos/store', [App\Http\Controllers\JefeOficinaController::class, 'storeDocumento'])->name('jefeoficina.documento.store');
 Route::post('jefeoficina/expedientes/aprobarDocumento', [App\Http\Controllers\JefeOficinaController::class, 'aprobarDocumento'])->name('jefeoficina.expediente.documento.aprobar');
 Route::post('jefeoficina/expedientes/generarDocumento', [App\Http\Controllers\JefeOficinaController::class, 'generarDocumento'])->name('jefeoficina.generar.documento');
+Route::post('jefeoficina/expediente/actualizarEstado', [App\Http\Controllers\JefeOficinaController::class, 'actualizarEstado'])->name('jefeoficina.expediente.estatus.actualizar');
 //
 //
 //

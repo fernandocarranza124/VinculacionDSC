@@ -29,8 +29,6 @@ class CreateAlumnoTable extends Migration
             $table->string('domicilio');
             $table->string('telefono');
             $table->char('segurosocial');
-            $table->unsignedBigInteger('seguroextra');
-            $table->string('numeroseguroextra');
             $table->timestamps();
             $table->rememberToken();
             $table->foreign('carrera')->references('id')->on('carrera')->constrained()

@@ -67,8 +67,15 @@
                                     <div class="tab-pane active" id="Inicio">
                                         <h3>Cuentas registradas:</h3>
                                         <strong>Jefe de oficina Vinculacion: </strong><p>Numero de control:03030303 Contraseña:3030</p>
-                                        <strong>Alumno: </strong><p>Numero de control:16121015 Contraseña:3434</p>
-                                        <strong>Profesor: </strong><p>Numero de control:01010101 Contraseña:123456789</p>
+                                        <strong>Alumno: </strong>
+                                            <p>Numero de control:16121015 Contraseña:3434</p>
+                                            <p>Numero de control:16121068 Contraseña:daniela</p>
+                                            <p>Numero de control:14269845 Contraseña:alejandro</p>
+                                        <strong>Profesor: </strong>
+                                            <p>Numero de control:01010101 Contraseña:123456789</p>
+                                            <p>Numero de control:12345678 Contraseña:rogelio</p>
+                                            <p>Numero de control:123123123 Contraseña:alcaraz</p>
+                                            <p>Numero de control:456456456 Contraseña:carol</p>
 
 
                                     </div>

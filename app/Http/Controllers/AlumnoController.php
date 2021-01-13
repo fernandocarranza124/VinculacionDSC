@@ -133,7 +133,7 @@ class AlumnoController extends Controller
                                 ->leftjoin('profesor','profesor.id','=','expediente.asesorInterno')
                         ->get(
                             ['expediente.id','expediente.estatus',
-                            'expediente.*','alumno.nombre as nombreAlumno','alumno.apellidoMaterno as apellidoMaternoAlumno','alumno.apellidoPaterno as apellidoPaternoAlumno','alumno.noControl as noControlAlumno', 'alumno.id as idAlumno','alumno.sexo as sexoAlumno', 'alumno.correoElectronico as correoAlumno','alumno.correoElectronicoTecNM as correoTecNMAlumno','profesor.nombre as nombreProfesor', 'profesor.apellidoPaterno as apellidoPaternoProfesor', 'profesor.apellidoMaterno as apellidoMaternoProfesor', 'profesor.id as idProfesor','expediente.fechaInicio','expediente.Nube']
+                            'expediente.*','alumno.nombre as nombreAlumno','alumno.apellidoMaterno as apellidoMaternoAlumno','alumno.apellidoPaterno as apellidoPaternoAlumno','alumno.noControl as noControlAlumno', 'alumno.id as idAlumno','alumno.sexo as sexoAlumno', 'alumno.correoElectronico as correoAlumno','alumno.correoElectronicoTecNM as correoTecNMAlumno','profesor.nombre as nombreProfesor', 'profesor.apellidoPaterno as apellidoPaternoProfesor', 'profesor.apellidoMaterno as apellidoMaternoProfesor', 'profesor.id as idProfesor','expediente.created_at as fechaInicio','expediente.Nube']
                         )->first();
        $error="Aun no tienes un expediente, solicita tu apertura de Residencias profesionales en : Periodo actual -> 'Solicitud de residencias profesionales'";
         if($expediente==null){
@@ -218,6 +218,12 @@ class AlumnoController extends Controller
         $documento_pivote = documento_pivote::where('id', $request->idDocumento)->first();
         $documento_pivote->autorizado = 1;
         $documento_pivote->save();
+
+        $registro=new Registro;
+        $registro->expediente=$request->idExpediente;
+        $registro->estatus=2;
+        $registro->save();
+        
         return redirect('alumno/residencias-profesionales');   
     }
 
