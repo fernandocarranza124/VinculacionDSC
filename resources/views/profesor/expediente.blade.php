@@ -18,6 +18,7 @@
         $intermedio=$desactivado;
         $final=$desactivado;
         switch ($expediente->estatus) {
+            // Apertura de expediente
             case '1':
             case '2':
             $apertura="";
@@ -26,6 +27,7 @@
             $intermedio=$desactivado;
             $final=$desactivado;
             break;
+            // Asesor asignado
             case '3':
             $apertura="";
             $asesor="";
@@ -33,6 +35,7 @@
             $intermedio=$desactivado;
             $final=$desactivado;
             break;
+            // Documentos aprobados
             case '4':
             $apertura="";
             $asesor="";
@@ -40,7 +43,11 @@
             $intermedio=$desactivado;
             $final=$desactivado;
             break;
+            // Documentos aprobados con modificaciones
             case '5':
+            case '6':
+            case '7':
+            case '8':
             $apertura="";
             $asesor="";
             $aprobados=$alerta;
@@ -48,8 +55,45 @@
             $final=$desactivado;
             $modificaciones="con modificaciones";
             break;
-            case '6':
-
+            // Reporte intermedio con modificaciones
+            case '9':
+            $apertura="";
+            $asesor="";
+            $aprobados="";
+            $intermedio=$alerta;
+            $final=$desactivado;
+            break;
+            // Reporte intermedio aprobado
+            case '10':
+            $apertura="";
+            $asesor="";
+            $aprobados="";
+            $intermedio="";
+            $final=$desactivado;
+            break;
+            // Reporte final aprobado
+            case '11':
+            $apertura="";
+            $asesor="";
+            $aprobados="";
+            $intermedio="";
+            $final="";
+            break;
+            // Reporte final aprobado con modificaciones
+            case '12':
+            $apertura="";
+            $asesor="";
+            $aprobados="";
+            $intermedio="";
+            $final=$alerta;
+            break;
+            // Residencias finalizadas
+            case '13':
+            $apertura="";
+            $asesor="";
+            $aprobados="";
+            $intermedio="";
+            $final="";
             break;
             
             default:
@@ -180,6 +224,11 @@
                                         <li>
                                             <small class="text-muted">Nombre:</small> <span>{{$expediente->nombreProyecto}}  </span>
                                         </li> 
+                                        @if ($expediente->Nube != null)
+                                            <li>
+                                                <small class="text-muted">Carpeta en la nube:</small> <span> <a href="{{$expediente->Nube}}"  target="_blank">DropBox/{{$expediente->nombreProyecto}} </a>   </span>
+                                            </li> 
+                                        @endif
                                         <li><small class="text-muted">Fecha de inicio:</small> <span>{{$expediente->fechaInicio}}</span>
                                         </li> 
                                         <li><small class="text-muted">Fecha terminacion:</small> <span>{{$expediente->fechaFinaliza}}</span>
@@ -230,34 +279,22 @@
                                 </div>
                                 <div class="panel-body">
                                     <div>
-                                        @php
-                                        if($expediente->solicitudResidenciasProfesionales==null){
-                                            @endphp
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <div class="row" style="box-shadow: inset 0 -5px 0 rgba(153, 153, 153, 0.2);">
-                                                        <div class="col-sm-4 col-xs-3 col-md-4 col-lg-2" >
-                                                            <img src="../img/pdfDocumentos.png" class="iconPDF" >
-                                                        </div>
-                                                        <div class="col-sm-8 col-xs-8 col-md-8 col-lg-4" >
-                                                            <p  class="text-left" style="font-size: 1.5rem;">Solicitud de residencias</p>
-                                                        </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12 col-lg-6 padding-sides-none" >
-                                                            <input type="file" name="file" id="file" class="input-file" accept="application/pdf">
-                                                            <label for="file" class="inputBorder btn btn-default js-labelFile btn-block padding-sides-none " style="
-                                                            border-right: 1px #ababab solid;
-                                                            border-left: 1px #ababab solid;
-                                                            border-top: 1px #ababab solid;
-                                                            border-bottom: 1px #ababab solid;">
-                                                            <span class="js-fileName">Subir archivo</span>
-                                                        </label>
-                                                    </div>
+                                        @foreach ($documentosPendiente as $documento)
+                                        <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row" style="box-shadow: inset 0 -5px 0 rgba(153, 153, 153, 0.2);">
+                                                <div class="col-sm-3 col-xs-3 col-md-4 col-lg-3" >
+                                                    <img src="../../../img/pdfDocumentos.png" class="iconPDF" >
                                                 </div>
+                                                <div class="col-sm-9 col-xs-8 col-md-8 col-lg-9" >
+                                                    <p  class="text-left" style="font-size: 1.5rem;">{{$documento->documento}}</p>
+                                                </div>
+                                                
+                                                
                                             </div>
-                                        </div> 
-                                        @php
-                                    }
-                                    @endphp
+                                        </div>
+                                    </div> 
+                                    @endforeach
 
 
                                 </div>
@@ -272,11 +309,31 @@
                                 </h3>
                             </div>
                             <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-sm-12 text-left">
-
-                                    </div>
-                                </div> 
+                                @foreach ($documentosRevision as $documento)
+                                        <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row" style="box-shadow: inset 0 -5px 0 rgba(153, 153, 153, 0.2);">
+                                                <div class="col-sm-3 col-xs-3 col-md-4 col-lg-2" >
+                                                    <img src="../../../img/pdfDocumentos.png" class="iconPDF" >
+                                                </div>
+                                                <div class="col-sm-9 col-xs-8 col-md-8 col-lg-6" >
+                                                    <p  class="text-left" style="font-size: 1.5rem;">{{$documento->documento}}</p>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-4 padding-sides-none" >
+                                                    <a href="{{$expediente->Nube}}" name="file" id="file" class="btn btn-info btn-raised btn-sm" target="_blank" style="width: 100%;">Ver</a>
+                                                    <form action="{{route('profesor.expediente.documento.aprobar')}}" method="post" accept-charset="utf-8">
+                                                        @csrf    
+                                                        <button type="submit" class="btn btn-primary btn-raised btn-sm" style="width: 100%;">Aprobar</a> </button> 
+                                                        <input type="hidden" name="idExpediente" id="idcarpetaNube" class="form-control" value="{{$expediente->id}}">
+                                                        <input type="hidden" name="idDocumento"  class="form-control" value="{{$documento->id}}">   
+                                                    </form>
+                                                    
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    @endforeach 
                                 <br> 
                             </div>
                         </div>
@@ -289,11 +346,23 @@
                                 </h3>
                             </div>
                             <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-sm-12 text-center">
-
-                                    </div>
-                                </div> 
+                                @foreach ($documentosAutorizado as $documento)
+                                        <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row" style="box-shadow: inset 0 -5px 0 rgba(153, 153, 153, 0.2);">
+                                                <div class="col-sm-3 col-xs-3 col-md-4 col-lg-2" >
+                                                    <img src="../../../img/pdfDocumentos.png" class="iconPDF" >
+                                                </div>
+                                                <div class="col-sm-9 col-xs-8 col-md-8 col-lg-6" >
+                                                    <p  class="text-left" style="font-size: 1.5rem;">{{$documento->documento}}</p>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-4 padding-sides-none" >
+                                                    <a href="{{$expediente->Nube}}" name="file" id="file" class="btn btn-info btn-raised btn-sm" target="_blank" style="width: 100%;">Ver</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    @endforeach
                                 <br> 
                             </div>
                         </div>
@@ -375,12 +444,13 @@
                                                             <h5>Citar documento: </h5>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <select name="menuDocumentos" id="menuDocumentos" class="" style="width: 100%; margin-top: 1rem;"  >
-                                                                <option value="null" selected="" > ---- </option>
-                                                                <option value="1">Carta tal</option>
-                                                                option
-                                                            </select>
-                                                        </div>
+                                                    <select name="menuDocumentos" id="menuDocumentos" class="" style="width: 100%; margin-top: 1rem;"  >
+                                                        <option value="null" selected="" > ---- </option>
+                                                        @foreach ($documentosRegistrados as $documento)
+                                                            <option value="{{$documento->id}}">{{$documento->nombre}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                                     </div>
                                                 </div>
                                             </div> 
@@ -414,24 +484,39 @@
                         </div>
                         <div class="panel-body">
                             <ul class="simple">
-                                <li>
-                                    <div class="row ">
-                                        <div class="col-sm-12">
-                                            <h4 class="text-muted">Registros: </h4>
-                                            <p class="text-muted">Ordenados por mas reciente</p> 
-                                            <div class="overflow-auto" style="border: solid black 0.1rem;">
-                                                <div class="list-group">
-                                                  <a href="#" class="list-group-item-info">
-                                                    <h4 class="list-group-item-heading">Expediente creado</h4>
-                                                    <p class="list-group-item-text">fecha: </p>
-                                                </a>
+                            <div class="row ">
+                                <div class="col-sm-12">
+                                    <h4 class="text-muted">Registros: </h4>
+                                    <p class="text-muted">Ordenados por mas reciente</p> 
+                                    <div class="overflow-auto" style="border: solid black 0.1rem;">
+                                        <div class="list-group">
+                                            <div class="row" >
+                                                @foreach ($registros as $registro)
+                                                    <div class="row" >
+                                                    <div class="col-sm-6" >
+                                                        <h4>{{$registro->nombreEstado}}</h4>
+                                                        <small style="color: gray;"><i>Prioridad: {{$registro->prioridad}}</i></small>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                        <small style="color: gray;">Fecha de creacion: <i>{{$registro->created_at}}</i></small>
+                                                        <div class="text-right">
+                                                            {{-- <a href="" class="btn btn-danger btn-raised btn-sm">
+                                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            </a> --}}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                @endforeach
+                                                
                                             </div>
-                                            
                                         </div>
+
                                     </div>
                                 </div>
-                            </li> 
-                        </ul>
+                            </div>
+                        </li> 
+                    </ul>
                     </div>
                 </div>
             </div>

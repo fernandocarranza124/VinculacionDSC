@@ -245,7 +245,7 @@
                                             <li>
                                                 <small class="text-muted">Carrera / Reticula:</small> <span>{{$expediente->nombreCarrera}}</span>
                                             </li>
-                                            <li><small class="text-muted">Especialidad: </small> <span>SIC13 / Arquitectura Web (2019-1)</span>
+                                            <li><small class="text-muted">Especialidad: </small> <span></span>
                                             </li>
                                             <li><small class="text-muted">Sexo:</small> <span>{{$expediente->sexoAlumno}} </span>
                                             </li>
@@ -269,6 +269,11 @@
                                     <li>
                                         <small class="text-muted">Nombre:</small> <span>{{$expediente->nombreProyecto}}  </span>
                                     </li> 
+                                    @if ($expediente->Nube != null)
+                                    <li>
+                                        <small class="text-muted">Carpeta en la nube:</small> <span> <a href="{{$expediente->Nube}}"  target="_blank">DropBox/{{$expediente->nombreProyecto}} </a>   </span>
+                                    </li> 
+                                    @endif
                                     <li><small class="text-muted">Fecha de inicio:</small> <span>{{$expediente->fechaInicio}}</span>
                                     </li> 
                                     <li><small class="text-muted">Fecha terminacion:</small> <span>{{$expediente->fechaFinaliza}}</span>

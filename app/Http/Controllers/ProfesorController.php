@@ -10,6 +10,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Alumno;
 use App\Models\Carrera;
 use App\Models\Comentario;
+use App\Models\documento;
+use App\Models\documento_pivote;
+use App\Models\Registro;
 class ProfesorController extends Controller
 {
 
@@ -69,10 +72,15 @@ class ProfesorController extends Controller
         $expediente->nombreCarrera=$carrera->nombre;
 
         $comentarios=self::mostrarComentarios($expediente->id);
-        // dd($profesores);
+        $documentosPendiente=documento_pivote::where('expediente',$expediente->id)->where('autorizado',0)->get();
+        $documentosRevision=documento_pivote::where('expediente',$expediente->id)->where('autorizado',1)->get();
+        $documentosAutorizado=documento_pivote::where('expediente',$expediente->id)->where('autorizado',2)->get();
+        $documentosRegistrados=documento::all();
+        $registros=Registro::where('expediente','=',$idExpediente)
+                            ->join('estatus','registro.estatus','=','estatus.id')
+                            ->latest()->get(['registro.*','estatus.nombre as nombreEstado','estatus.prioridad']);
 
-        // dd($expediente);
-        return view('profesor.expediente', compact('usuario','expediente','comentarios'));
+        return view('profesor.expediente', compact('usuario','expediente','comentarios','documentosPendiente','documentosRevision','documentosAutorizado','documentosRegistrados','registros'));
     }
 
     public function agregarComentario(Request $request)
@@ -105,6 +113,19 @@ class ProfesorController extends Controller
                     ->orderBy('created_at', 'desc')
                     ->get();
         return $comentarios;
+    }
+    public function aprobarDocumento(Request $request)
+    {
+        $documento_pivote = documento_pivote::where('id', $request->idDocumento)->first();
+        $documento_pivote->autorizado = 2;
+        $documento_pivote->save();
+
+        $registro=new Registro;
+        $registro->expediente=$request->idExpediente;
+        $registro->estatus=4;
+        $registro->save();
+
+        return redirect('jefeoficina/expedientes/ver/'.$request->idExpediente.'');
     }
 
     /**

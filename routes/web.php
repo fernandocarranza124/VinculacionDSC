@@ -49,6 +49,7 @@ Route::post('profesor/login', [App\Http\Controllers\AuthProfesor\ProfesorLoginCo
 Route::get('profesor/residencias-profesionales',[App\Http\Controllers\ProfesorController::class, 'consultaResidentes'])->name('profesor.consulta.residentes');
 Route::get('profesor/expedientes/ver/{idExpediente}', [App\Http\Controllers\ProfesorController::class, 'editExpediente'])->name('profesor.expedientes.edit');
 Route::post('profesor/expedientes/comentar', [App\Http\Controllers\ProfesorController::class, 'agregarComentario'])->name('profesor.expediente.comentar');
+Route::post('profesor/expedientes/aprobarDocumento', [App\Http\Controllers\ProfesorController::class, 'aprobarDocumento'])->name('profesor.expediente.documento.aprobar');
 
 // 
 // 
@@ -80,6 +81,7 @@ Route::post('jefeoficina/documentos/store', [App\Http\Controllers\JefeOficinaCon
 Route::post('jefeoficina/expedientes/aprobarDocumento', [App\Http\Controllers\JefeOficinaController::class, 'aprobarDocumento'])->name('jefeoficina.expediente.documento.aprobar');
 Route::post('jefeoficina/expedientes/generarDocumento', [App\Http\Controllers\JefeOficinaController::class, 'generarDocumento'])->name('jefeoficina.generar.documento');
 Route::post('jefeoficina/expediente/actualizarEstado', [App\Http\Controllers\JefeOficinaController::class, 'actualizarEstado'])->name('jefeoficina.expediente.estatus.actualizar');
+
 //
 //
 //
