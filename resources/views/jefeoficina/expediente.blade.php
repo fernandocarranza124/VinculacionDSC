@@ -144,20 +144,20 @@
             </div>
         </div>
         <br>
-        @if ($expediente->Nube == null)
+        @if ($expediente->Nube != null)
         <div class="col-sm-12 col-sm-offset-0">
             <div class="panel panel-default" >
                 <div class="panel-body text-center vacante" style="height: fit-content; padding-bottom: 0px;">
                     <div class="col-12 justify-content-center align-self-center">
                         <div class="progeso-panel">
-                            <h5><strong> Si el alumno ya cumplió subiendo los archivos correspondientes a la primer fase, es posible actualizar el estado de su expediente. </strong></h5>
+                            <h5><strong> Si el alumno ya cumplió subiendo los archivos correspondientes a la fase actual, es posible actualizar el estado de su expediente. </strong></h5>
                             <form action="{{route('jefeoficina.expediente.estatus.actualizar')}}" method="post" accept-charset="utf-8">
                               @csrf
                               <div class="form-group label-floating">
                                 <input type="hidden" name="idExpediente" id="idcarpetaNube" class="form-control" value="{{$expediente->id}}">
                                 <label for="carpetaNube" class="control-label">Seleccione la etapa en la que se encuentra el expediente</label> 
                                 <select id="menufases" class="selectpicker form-control" data-live-search="true" name="menufases" >
-                                        <option value="null" selected=""  disabled="">Fase actual </option>
+                                        <option value="null" selected=""  disabled="">Selecciona para actualizar estado </option>
                                         <option value="1"><strong>Apertura de expediente</strong></option>
                                         <option value="3">Asesor asignado</option>
                                         <option value="4">Documentos aprobados</option>
@@ -432,7 +432,11 @@
                                             
                                             
                                         
-                                    <select id="menuGenerar" class="selectpicker form-control" data-live-search="true" name="menuGenerar" onchange="cambiarCampos()">
+                                    
+                                    <input type="hidden" name="idExpediente" value="{{$expediente->id}}">
+                                    @if ($expediente->idProfesor != null)
+
+                                        <select id="menuGenerar" class="selectpicker form-control" data-live-search="true" name="menuGenerar" onchange="cambiarCampos()">
                                         <option value="null" selected=""  disabled="">Selecciona un documento </option>
                                         <option value="1"><strong>Carta de presentacion del estudiante</strong></option>
                                         <option value="2">Carta de asignacion de asesor interno</option>
@@ -440,7 +444,10 @@
                                         <option value="4">Constancia de cumplimiento</option>
                                         <option value="5">Carta de acreditacion de residencia profesional</option>
                                     </select>
-                                    <input type="hidden" name="idExpediente" value="{{$expediente->id}}">
+
+                                    @else
+                                        <h5>Aún no se ha asignado un asesor interno, favor de asignaro para evitar inconsistencias en los documentos</h5>
+                                    @endif
                                     <div class="col-sm-12" id="agregarCampos">
                                         
                                     </div>
@@ -470,6 +477,9 @@
                                                var button = document.createElement("input");
                                                 button.setAttribute('type', "submit");
                                                 button.setAttribute('class', "btn btn-primary btn-raised btn-sm");
+                                                while(div.firstChild){
+                                                    div.removeChild(div.firstChild)
+                                                }
 
                                                formControl.appendChild(l);
                                                formControl.appendChild(i);

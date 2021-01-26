@@ -18,43 +18,87 @@
         $intermedio=$desactivado;
         $final=$desactivado;
         switch ($expediente->estatus) {
+            // Apertura de expediente
             case '1':
             case '2':
-                $apertura="";
-                $asesor=$desactivado;
-                $aprobados=$desactivado;
-                $intermedio=$desactivado;
-                $final=$desactivado;
-                break;
+            $apertura="";
+            $asesor=$desactivado;
+            $aprobados=$desactivado;
+            $intermedio=$desactivado;
+            $final=$desactivado;
+            break;
+            // Asesor asignado
             case '3':
-                $apertura="";
-                $asesor="";
-                $aprobados=$desactivado;
-                $intermedio=$desactivado;
-                $final=$desactivado;
-                break;
+            $apertura="";
+            $asesor="";
+            $aprobados=$desactivado;
+            $intermedio=$desactivado;
+            $final=$desactivado;
+            break;
+            // Documentos aprobados
             case '4':
-                $apertura="";
-                $asesor="";
-                $aprobados="";
-                $intermedio=$desactivado;
-                $final=$desactivado;
-                break;
+            $apertura="";
+            $asesor="";
+            $aprobados="";
+            $intermedio=$desactivado;
+            $final=$desactivado;
+            break;
+            // Documentos aprobados con modificaciones
             case '5':
-                $apertura="";
-                $asesor="";
-                $aprobados=$alerta;
-                $intermedio=$desactivado;
-                $final=$desactivado;
-                $modificaciones="con modificaciones";
-                break;
             case '6':
-                
-                break;
+            case '7':
+            case '8':
+            $apertura="";
+            $asesor="";
+            $aprobados=$alerta;
+            $intermedio=$desactivado;
+            $final=$desactivado;
+            $modificaciones="con modificaciones";
+            break;
+            // Reporte intermedio con modificaciones
+            case '9':
+            $apertura="";
+            $asesor="";
+            $aprobados="";
+            $intermedio=$alerta;
+            $final=$desactivado;
+            break;
+            // Reporte intermedio aprobado
+            case '10':
+            $apertura="";
+            $asesor="";
+            $aprobados="";
+            $intermedio="";
+            $final=$desactivado;
+            break;
+            // Reporte final aprobado
+            case '11':
+            $apertura="";
+            $asesor="";
+            $aprobados="";
+            $intermedio="";
+            $final="";
+            break;
+            // Reporte final aprobado con modificaciones
+            case '12':
+            $apertura="";
+            $asesor="";
+            $aprobados="";
+            $intermedio="";
+            $final=$alerta;
+            break;
+            // Residencias finalizadas
+            case '13':
+            $apertura="";
+            $asesor="";
+            $aprobados="";
+            $intermedio="";
+            $final="";
+            break;
             
             default:
                 # code...
-                break;
+            break;
         }
         @endphp
         <br>

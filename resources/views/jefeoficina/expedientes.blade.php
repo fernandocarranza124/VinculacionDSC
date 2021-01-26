@@ -15,7 +15,7 @@
                 </div>
                 <div class="btn-group" role="group">
                     <div class="col-sm-10">
-                        <a href="{{-- {{route('jefeoficina.expedientes.generar.reporte')}} --}}">
+                        <a href="{{route('jefeoficina.expedientes.generar.reporte')}}">
                             <button type="button" class="btn btn-primary btn-raised btn-lg">Generar reporte de residentes</button>
                         </a>
                     </div>
