@@ -411,72 +411,72 @@ class JefeOficinaController extends Controller
         } 
         
     }
-    // public function generarReporte()
-    // {
-    //     $usuario=Auth::user();
+    public function generarReporte()
+    {
+        // $usuario=Auth::user();
         
-    //     $carreras=Carrera::all()
-    //                 ->where('departamento','=',$usuario->departamento);
+        // $carreras=Carrera::all()
+        //             ->where('departamento','=',$usuario->departamento);
                     
         
         
-    //     $headers = array(
-    //         "Content-type"        => "text/csv",
-    //         "Content-Disposition" => "attachment; filename=test",
-    //         "Pragma"              => "no-cache",
-    //         "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
-    //         "Expires"             => "0"
-    //     );
-    //     $columns = array('Carrera', 'Genero', 'Cantidad');
-    //     $callback = function() use($carreras, $columns) {
-    //         $handle = fopen('test.csv', 'w+');
-    //         fputcsv($file, $columns);
+        // $headers = array(
+        //     "Content-type"        => "text/csv",
+        //     "Content-Disposition" => "attachment; filename=test",
+        //     "Pragma"              => "no-cache",
+        //     "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+        //     "Expires"             => "0"
+        // );
+        // $columns = array('Carrera', 'Genero', 'Cantidad');
+        // $callback = function() use($carreras, $columns) {
+        //     $handle = fopen('test.csv', 'w+');
+        //     fputcsv($file, $columns);
 
-    //         foreach ($carreras as $carrera) {
-    //         $Hombre=count(Expediente::join('alumno','alumno.id','=','expediente.alumno')
-    //                     ->leftjoin('carrera', 'carrera.id','=','alumno.carrera')
-    //                     ->leftjoin('departamento','departamento.id','=','carrera.departamento')
-    //                     ->where('departamento.id','=',$usuario->departamento )
-    //                     ->where('alumno.sexo','=','Hombre')
-    //                     ->where('carrera.id', '=',$carrera->id)
-    //                     ->get(
-    //                         ['expediente.id',]
-    //                     ));
-    //         $row['Carrera']  = $carrera->nombre;
-    //         $row['Genero']    = "Masculino";
-    //         $row['Cantidad']    = $Hombre;
-    //             fputcsv($file, array($row['Carrera'], $row['Genero'], $row['Cantidad']));
-    //         $Mujer=count(Expediente::join('alumno','alumno.id','=','expediente.alumno')
-    //                     ->leftjoin('carrera', 'carrera.id','=','alumno.carrera')
-    //                     ->leftjoin('departamento','departamento.id','=','carrera.departamento')
-    //                     ->where('departamento.id','=',$usuario->departamento )
-    //                     ->where('alumno.sexo','=','Mujer')
-    //                     ->where('carrera.id', '=',$carrera->id)
-    //                     ->get(
-    //                         ['expediente.id',]
-    //                     ));    
-    //         $row['Carrera']  = $carrera->nombre;
-    //         $row['Genero']    = "Femenino";
-    //         $row['Cantidad']    = $Mujer;
-    //             fputcsv($file, array($row['Carrera'], $row['Genero'], $row['Cantidad']));
-    //         }
+        //     foreach ($carreras as $carrera) {
+        //     $Hombre=count(Expediente::join('alumno','alumno.id','=','expediente.alumno')
+        //                 ->leftjoin('carrera', 'carrera.id','=','alumno.carrera')
+        //                 ->leftjoin('departamento','departamento.id','=','carrera.departamento')
+        //                 ->where('departamento.id','=',$usuario->departamento )
+        //                 ->where('alumno.sexo','=','Hombre')
+        //                 ->where('carrera.id', '=',$carrera->id)
+        //                 ->get(
+        //                     ['expediente.id',]
+        //                 ));
+        //     $row['Carrera']  = $carrera->nombre;
+        //     $row['Genero']    = "Masculino";
+        //     $row['Cantidad']    = $Hombre;
+        //         fputcsv($file, array($row['Carrera'], $row['Genero'], $row['Cantidad']));
+        //     $Mujer=count(Expediente::join('alumno','alumno.id','=','expediente.alumno')
+        //                 ->leftjoin('carrera', 'carrera.id','=','alumno.carrera')
+        //                 ->leftjoin('departamento','departamento.id','=','carrera.departamento')
+        //                 ->where('departamento.id','=',$usuario->departamento )
+        //                 ->where('alumno.sexo','=','Mujer')
+        //                 ->where('carrera.id', '=',$carrera->id)
+        //                 ->get(
+        //                     ['expediente.id',]
+        //                 ));    
+        //     $row['Carrera']  = $carrera->nombre;
+        //     $row['Genero']    = "Femenino";
+        //     $row['Cantidad']    = $Mujer;
+        //         fputcsv($file, array($row['Carrera'], $row['Genero'], $row['Cantidad']));
+        //     }
 
-    //         fclose($file);
-    //     };
-    //     // $file=Storage::disk('public')->get("test.csv");
-    //     $file = fopen('test.csv', 'w+');
-    //         $headers = array(
-    //         'Content-Type' => 'text/csv',
-    //         );
-    //         // dd($file);
-    //     $filename="test.csv";
-    //     //header('Content-Type' => 'text/csv');
-    //     //readfile($filename);
-    //     // return response()->download('test.csv', $headers);
-    //     //return (new Response($file, 200))->header('Content-Type', 'document/csv');
+        //     fclose($file);
+        // };
+        // // $file=Storage::disk('public')->get("test.csv");
+        // $file = fopen('test.csv', 'w+');
+        //     $headers = array(
+        //     'Content-Type' => 'text/csv',
+        //     );
+        //     // dd($file);
+        // $filename="test.csv";
+        // //header('Content-Type' => 'text/csv');
+        // //readfile($filename);
+        // // return response()->download('test.csv', $headers);
+        // //return (new Response($file, 200))->header('Content-Type', 'document/csv');
 
 
-    // }
+    }
 
 
     public function numeroMes($mes)
