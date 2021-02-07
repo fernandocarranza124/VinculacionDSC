@@ -396,7 +396,15 @@ class JefeOficinaController extends Controller
                 return $pdf->download($nombreArchivo);
                 break;
             case '3':
-                # code...
+            $fecha=Carbon::now();
+            $fecha->toDateString();
+            $fecha = substr($fecha, 0, -8);
+            $Folio=$request->idFolio;
+            $Year=substr($fecha, 0, 4);       
+                    $pdf = PDF::loadView('jefeoficina.formatos.revision', compact('Folio','Year'))->setOptions(['defaultFont' => 'sans-serif']); 
+                $nombreArchivo ="Carta de revision- .pdf";
+                
+                return view('jefeoficina.formatos.revision');
                 break;
             case '4':
                 # code...
