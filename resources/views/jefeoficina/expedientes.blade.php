@@ -24,7 +24,7 @@
             
         </div>
 
-        <div class="col-sm-12"><h3>Expdientes </h3></div>
+        <div class="col-sm-12"><h3>Expedientes </h3></div>
         <div class="row">
             {{-- Tarjetas  --}}
             {{-- <div class="col-sm-1 "></div> --}}
@@ -33,6 +33,73 @@
             $bandera=0;
             @endphp
             @foreach ($expedientes as $expediente)
+
+            @php
+            $contador=$contador+1;
+                if ($contador==1) {
+                    echo '<div class="row">';
+                    echo '<div class="col-sm-3 col-sm-offset-1">';        
+                }else if ($contador==3) {
+                    $contador=0;
+                    echo '<div class="col-sm-12 col-sm-offset-1">';
+                }else{
+                    echo '<div class="col-sm-3 col-sm-offset-0">';
+                }
+            @endphp
+            
+                <div class="panel panel-default" >
+                    <div class="panel-heading">
+                        <h4 class="panel-title text-center">
+                            {{$expediente->nombreProyecto}}
+                        </h4>
+                    </div>
+                    @php
+                    $especialidades="";
+                    @endphp
+                    <div class="panel-body text-center vacante">
+                        <div class="row">
+                            <div class="col-12 justify-content-center align-self-center">
+                                <h5>Alumno: {{$expediente->nombre}} {{$expediente->apellidoPaterno}} {{$expediente->apellidoMaterno}}</h5>
+                                <h6>Asesor interno: {{$expediente->asesorNombre}} {{$expediente->asesorApellidoPaterno}} {{$expediente->asesorApellidoMaterno}}</h6>
+
+                            </div>
+                        </div>       
+                    </div>
+                    
+                    <div class="panel-footer text-right">
+
+                            
+                            <a class="btn btn-primary btn-raised btn-sm" href="expedientes/ver/{{$expediente->id}}"> Ver</a>
+                            <a class="btn btn-danger btn-raised btn-sm" href="expedientes/eliminar/{{$expediente->id}}"> 
+                                <i class="fa fa-trash" aria-hidden="true"></i>Borrar
+                            </a>
+                        
+
+                    </div>
+                </div>
+            </div>
+            @php
+            if ($contador==3) {
+                    echo '<div class="col-sm-2"></div>';
+                    echo '</div>';        
+                }
+            
+            @endphp
+
+            @endforeach
+            </div>
+        </div>
+
+
+        <div class="col-sm-12"><h3>Expedientes de periodos anteriores</h3></div>
+        <div class="row">
+            {{-- Tarjetas  --}}
+            {{-- <div class="col-sm-1 "></div> --}}
+            @php
+            $contador=0;
+            $bandera=0;
+            @endphp
+            @foreach ($expedientesAntiguos as $expediente)
 
             @php
             $contador=$contador+1;

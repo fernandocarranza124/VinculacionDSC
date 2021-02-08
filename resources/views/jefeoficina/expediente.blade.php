@@ -454,25 +454,48 @@
                                     </form>
                                     <script type="text/javascript" charset="utf-8">
                                            function cambiarCampos() {
+
                                                var selectInput = document.getElementById('menuGenerar');
-                                               // alert(selectInput.options[selectInput.selectedIndex].text);
+                                               var opcion = (selectInput.options[selectInput.selectedIndex].value);
+                                               
                                                var div = document.getElementById('agregarCampos');
                                                // <div class="form-group label-floating">
                                                var formControl = document.createElement('div')
                                                 formControl.setAttribute('class', "form-group label-floating");
+                                                var formControl2 = document.createElement('div')
+                                                formControl2.setAttribute('class', "form-group label-floating");
 
 
-                                               var l = document.createElement("label"); //input element, text
-                                                l.setAttribute('for',"idFolio");
-                                                l.setAttribute('class',"control-label");
+                                               var label = document.createElement("label"); //input element, text
+                                                label.setAttribute('for',"idFolio");
+                                                label.setAttribute('class',"control-label");
                                                 var text = document.createTextNode("Ingresa el folio que se mostrará en el documento generado");
-                                                l.appendChild(text);
+                                                label.appendChild(text);
 
                                                var i = document.createElement("input"); //input element, text
                                                 i.setAttribute('type',"text");
                                                 i.setAttribute('name',"idFolio"); 
                                                 i.setAttribute('id',"idFolio"); 
                                                 i.setAttribute('class',"form-control");
+                                                i.setAttribute('required', 'true');
+
+                                                switch(opcion){
+                                                    case '1':
+                                                        var label2 = document.createElement("label"); //input element, text
+                                                        label2.setAttribute('for',"empresaSeguros");
+                                                        label2.setAttribute('class',"control-label");
+                                                        var text = document.createTextNode("Ingresa la empresa de seguros que actualmente tiene contrato con el plantel");
+                                                        label2.appendChild(text);
+                                                        var j = document.createElement("input"); //input element, text
+                                                        j.setAttribute('type',"text");
+                                                        j.setAttribute('name',"empresaSeguros"); 
+                                                        j.setAttribute('id',"empresaSeguros"); 
+                                                        j.setAttribute('class',"form-control");
+                                                        j.setAttribute('required', 'true');
+                                                    default:
+                                                        break;
+                                                }
+                                               
                                                
                                                var button = document.createElement("input");
                                                 button.setAttribute('type', "submit");
@@ -481,9 +504,20 @@
                                                     div.removeChild(div.firstChild)
                                                 }
 
-                                               formControl.appendChild(l);
+                                               formControl.appendChild(label);
                                                formControl.appendChild(i);
                                                div.appendChild(formControl);
+                                               switch(opcion){
+                                                    case '1':
+                                                    formControl2.appendChild(j);
+                                                    formControl2.appendChild(label2);         
+                                                    div.appendChild(formControl2);
+                                                    default:
+                                                        break;
+                                                }
+                                               
+                                               
+                                               
                                                div.appendChild(button);
 
                                            }

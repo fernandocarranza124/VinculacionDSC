@@ -128,7 +128,99 @@
                     
                     <div class="panel-footer text-right">
 
-                            <button type="button" class="btn btn-primary btn-raised btn-sm" data-toggle="modal" data-target="#myModal" data-title="{{$vacante->empresa}}" data-tag="{{$especialidades}}" data-image="{{ URL::asset('img/'.$vacante->ruta)}}" onclick="probando({{$vacante->id}})">
+                            {{-- <button type="button" class="btn btn-primary btn-raised btn-sm" data-toggle="modal" data-target="#myModal" data-title="{{$vacante->empresa}}" data-tag="{{$especialidades}}" data-image="{{ URL::asset('img/'.$vacante->ruta)}}" onclick="probando({{$vacante->id}})">
+                                Ver
+                            </button> --}}
+                            <button type="button" class="btn btn-primary btn-raised btn-sm" data-toggle="modal" data-target="#myModal" data-title="{{$vacante->empresa}}" data-tag="{{$especialidades}}" data-image="{{'http://vinculaciondsc.herokuapp.com/img/'.$vacante->ruta}}" onclick="probando({{$vacante->id}})">
+                                Ver
+                            </button>
+                            <a class="btn btn-warning btn-raised btn-sm" href="{{route('jefeoficina.vacante.edit', $vacante->id)}}"> Editar</a>
+                            <a class="btn btn-danger btn-raised btn-sm" href="{{route('jefeoficina.vacante.delete', $vacante->id)}}"> 
+                                <i class="fa fa-trash" aria-hidden="true"></i>Borrar
+                            </a>
+                        
+
+                    </div>
+                </div>
+            </div>
+            @php
+            if ($contador==3) {
+                    echo '<div class="col-sm-2"></div>';
+                    echo '</div>';        
+                }
+            
+            @endphp
+
+            @endforeach
+            </div>
+        </div>
+
+        <div class="col-sm-12"><h3>Vacantes Inactivas</h3></div>
+        <div class="row">
+            {{-- Tarjetas  --}}
+            {{-- <div class="col-sm-1 "></div> --}}
+            @php
+            $contador=0;
+            $bandera=0;
+            @endphp
+            @foreach ($vacantesInactivas as $vacante)
+
+            @php
+            $contador=$contador+1;
+                if ($contador==1) {
+                    echo '<div class="row">';
+                    echo '<div class="col-sm-3 col-sm-offset-1">';        
+                }else if ($contador==3) {
+                    $contador=0;
+                    echo '<div class="col-sm-3 col-sm-offset-0">';
+                }else{
+                    echo '<div class="col-sm-3 col-sm-offset-0">';
+                }
+            @endphp
+            
+                <div class="panel panel-default" >
+                    <div class="panel-heading">
+                        <h3 class="panel-title text-center">
+                            {{$vacante->empresa}}
+                        </h3>
+                    </div>
+                    @php
+                    $especialidades="";
+                    @endphp
+                    <div class="panel-body text-center vacante">
+                        <div class="row">
+                            <div class="col-12 justify-content-center align-self-center">
+                                <p class=" align-middle">
+                                    {{$especialidades=""}}
+                                    @if($vacante->IngSof)
+                                    @php
+                                    $especialidades=$especialidades.' Ingenieria de software';
+                                    @endphp
+                                    <span class="badge badge-secondary">Ingenieria de software</span>    
+                                    @endif
+                                    @if($vacante->SegInf)
+                                    <span class="badge badge-secondary">Seguridad informatica</span>    
+                                    @php
+                                    $especialidades=$especialidades.' Seguridad informatica';
+                                    @endphp
+                                    @endif
+                                    @if($vacante->TecWeb)
+                                    <span class="badge badge-secondary">Tecnologias web</span>
+                                    @php
+                                    $especialidades=$especialidades.' Tecnologias web';
+                                    @endphp
+                                    @endif
+                                </p>
+                            </div>
+                        </div>       
+                    </div>
+                    
+                    <div class="panel-footer text-right">
+
+                            {{-- <button type="button" class="btn btn-primary btn-raised btn-sm" data-toggle="modal" data-target="#myModal" data-title="{{$vacante->empresa}}" data-tag="{{$especialidades}}" data-image="{{ URL::asset('img/'.$vacante->ruta)}}" onclick="probando({{$vacante->id}})">
+                                Ver
+                            </button> --}}
+                            <button type="button" class="btn btn-primary btn-raised btn-sm" data-toggle="modal" data-target="#myModal" data-title="{{$vacante->empresa}}" data-tag="{{$especialidades}}" data-image="{{'http://vinculaciondsc.herokuapp.com/img/'.$vacante->ruta}}" onclick="probando({{$vacante->id}})">
                                 Ver
                             </button>
                             <a class="btn btn-warning btn-raised btn-sm" href="{{route('jefeoficina.vacante.edit', $vacante->id)}}"> Editar</a>

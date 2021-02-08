@@ -5,6 +5,8 @@ use \Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use \App\Models\Profesor;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\MessageBag;
+
 
 class ProfesorLoginController extends Controller
 {
@@ -64,9 +66,10 @@ class ProfesorLoginController extends Controller
             // If login succesful, then redirect to their intended location
             return redirect()->intended(route('profesor.home'));
         }
-
+         $errors = new MessageBag;
+        $errors = new MessageBag(['password' => ['No Control o contraseña incorrecta.']]);
         // If Unsuccessful, then redirect back to the login with the form data
-        return redirect()->back()->withInput($request->only('noControl', 'remember'));
+        return redirect()->back()->withErrors($errors)->withInput($request->only('noControl', 'remember'));
     }
 }
 

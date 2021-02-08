@@ -65,9 +65,15 @@
                             <div class="panel-body text-center " style="height: fit-content; padding-bottom: 0px;">
                                 <div class="tab-content clearfix">
                                     <div class="tab-pane active" id="Inicio">
+                                        @if ($error = $errors->first('password'))
+                                                      <div class="alert alert-danger">
+                                                        {{ $error }}
+                                                      </div>
+                                        @endif
                                         <h3>Cuentas registradas:</h3>
                                         <strong>Jefe de oficina Vinculacion: </strong><p>Numero de control:03030303 Contraseña:3030</p>
                                         <strong>Alumno: </strong>
+                                            <p>Numero de control:16121001 Contraseña:erick</p>
                                             <p>Numero de control:16121015 Contraseña:3434</p>
                                             <p>Numero de control:16121068 Contraseña:daniela</p>
                                             <p>Numero de control:14269845 Contraseña:alejandro</p>
@@ -85,6 +91,11 @@
                                             <form method="POST" action="{{ route('jefeoficina.login.submit') }}">
                                                 @csrf
                                                 <div class="col-sm-10 col-sm-offset-1">
+                                                    @if ($error = $errors->first('password'))
+                                                      <div class="alert alert-danger">
+                                                        {{ $error }}
+                                                      </div>
+                                                    @endif
                                                     <div class="form-group label-floating">
                                                         <label for="ncontrol" class="control-label">Número de control</label> 
                                                         <input id="noControl" type="text" class="form-control @error('noControl') is-invalid @enderror" name="noControl" value="{{ old('noControl') }}" required autocomplete="noControl">
@@ -104,6 +115,11 @@
                                             <form method="POST" action="{{ route('login') }}">
                                                 @csrf
                                                 <div class="col-sm-10 col-sm-offset-1">
+                                                    @if ($error = $errors->first('password'))
+                                                      <div class="alert alert-danger">
+                                                        {{ $error }}
+                                                      </div>
+                                                    @endif
                                                     <div class="form-group label-floating">
                                                         <label for="ncontrol" class="control-label">Número de control</label> 
                                                         <input id="noControl" type="text" class="form-control @error('noControl') is-invalid @enderror" name="noControl" value="{{ old('noControl') }}" required autocomplete="noControl">
@@ -123,6 +139,11 @@
                                             <form method="POST" action="{{ route('Profesor.login.submit') }}">
                                                 @csrf
                                                 <div class="col-sm-10 col-sm-offset-1">
+                                                    @if ($error = $errors->first('password'))
+                                                      <div class="alert alert-danger">
+                                                        {{ $error }}
+                                                      </div>
+                                                    @endif
                                                     <div class="form-group label-floating">
                                                         <label for="ncontrol" class="control-label">Número de control</label> 
                                                         <input id="noControl" type="text" class="form-control @error('noControl') is-invalid @enderror" name="noControl" value="{{ old('noControl') }}" required autocomplete="noControl">

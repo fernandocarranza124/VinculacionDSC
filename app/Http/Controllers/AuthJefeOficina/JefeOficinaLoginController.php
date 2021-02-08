@@ -5,6 +5,8 @@ use \Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use \App\Models\JefeOficina;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\MessageBag;
+
 
 class JefeOficinaLoginController extends Controller
 {
@@ -49,7 +51,7 @@ class JefeOficinaLoginController extends Controller
      */
     public function login(Request $request)
     {
-        
+        $errors = new MessageBag;
         $this->validate($request, [
             'noControl' => 'required',
             'password' => 'required|min:1'
@@ -67,9 +69,9 @@ class JefeOficinaLoginController extends Controller
              
             return redirect()->intended(route('jefeoficina.home'));
         }
-        
+        $errors = new MessageBag(['password' => ['No Control o contraseña incorrecta.']]);
         // If Unsuccessful, then redirect back to the login with the form data
-        return redirect()->back()->withInput($request->only('noControl', 'remember'));
+        return redirect()->back()->withErrors($errors)->withInput($request->only('noControl', 'remember'));
     }
 }
 

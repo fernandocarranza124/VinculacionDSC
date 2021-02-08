@@ -44,16 +44,22 @@ class JefeOficinaController extends Controller
         $usuario=Auth::user();
         $departamento=Auth::user()->departamento;
         
-        $vacantes=Vacante::where('departamento', '=', $departamento)->get();
+        $vacantes=Vacante::where('departamento', '=', $departamento)
+                        ->where('activa','=','True')->get();
+        $vacantesInactivas=Vacante::where('departamento', '=', $departamento)
+                        ->where('activa','=','False')->get();
+    
 
 
-        return view('jefeoficina.catalogo', compact('usuario', 'vacantes'));
+        return view('jefeoficina.catalogo', compact('usuario', 'vacantes','vacantesInactivas'));
         // return view('jefeoficina.vacantes', compact('usuario'));
     }
     public function createVacante()
     {   
         $usuario=Auth::user();
-        $departamentos=Departamento::all();
+        $departamentoUsuario=Auth::user()->departamento;
+        $departamentos=Departamento::where('id','=',$departamentoUsuario)->get();
+            
         return view('jefeoficina.createVacante', compact('usuario','departamentos'));
     }
     public function storeVacante(Request $request)
@@ -71,6 +77,8 @@ class JefeOficinaController extends Controller
         }else{            $vacante->SegInf=$request->input('SegInf');        }
         if($request->input('ruta')!=null){
             $vacante->ruta=$request->input('ruta');
+        }else{
+            $vacante->ruta="vacanteDefault.png";
         }
         if($request->file('archivo')!=null){
             $archivos=$request->file('archivo');
@@ -99,7 +107,8 @@ class JefeOficinaController extends Controller
         $vacante=Vacante::find($idVacante);                 
         $departamento=Departamento::findOrFail($vacante->departamento);
         $vacante->nombreDepartamento=$departamento->nombre;
-        $departamentos=Departamento::all();
+        $departamentoUsuario=Auth::user()->departamento;
+        $departamentos=Departamento::where('id','=',$departamentoUsuario)->get();
         
         return view('jefeoficina.editVacante', compact('usuario', 'vacante', 'departamentos'));
     }
@@ -139,21 +148,33 @@ class JefeOficinaController extends Controller
     {
         $usuario=Auth::user();
         
-
+        $periodo=3;
         $expedientes=Expediente::join('alumno','alumno.id','=','expediente.alumno')
                         ->leftjoin('carrera', 'carrera.id','=','alumno.carrera')
                         ->leftjoin('departamento','departamento.id','=','carrera.departamento')
                         ->leftjoin('profesor','profesor.id','=','expediente.asesorInterno')
                         ->where('departamento.id','=',$usuario->departamento )
+                        ->where('expediente.periodo','=',$periodo)
                         // where('id','=',$expediente->idAlumno)
                         ->get(
-                            ['expediente.id','expediente.nombreProyecto','alumno.nombre','alumno.apellidoMaterno','alumno.apellidoPaterno','alumno.noControl','profesor.nombre as asesorNombre','profesor.apellidoPaterno as asesorApellidoPaterno','profesor.apellidoMaterno as asesorApellidoMaterno','alumno.carrera as carreraAlumno']
+                            ['expediente.id','expediente.nombreProyecto','alumno.nombre','alumno.apellidoMaterno','alumno.apellidoPaterno','alumno.noControl','profesor.nombre as asesorNombre','profesor.apellidoPaterno as asesorApellidoPaterno','profesor.apellidoMaterno as asesorApellidoMaterno','alumno.carrera as carreraAlumno','expediente.periodo']
+                        );
+
+        $expedientesAntiguos=Expediente::join('alumno','alumno.id','=','expediente.alumno')
+                        ->leftjoin('carrera', 'carrera.id','=','alumno.carrera')
+                        ->leftjoin('departamento','departamento.id','=','carrera.departamento')
+                        ->leftjoin('profesor','profesor.id','=','expediente.asesorInterno')
+                        ->where('departamento.id','=',$usuario->departamento )
+                        ->where('expediente.periodo','!=',$periodo)
+                        // where('id','=',$expediente->idAlumno)
+                        ->get(
+                            ['expediente.id','expediente.nombreProyecto','alumno.nombre','alumno.apellidoMaterno','alumno.apellidoPaterno','alumno.noControl','profesor.nombre as asesorNombre','profesor.apellidoPaterno as asesorApellidoPaterno','profesor.apellidoMaterno as asesorApellidoMaterno','alumno.carrera as carreraAlumno','expediente.periodo']
                         );
         
-                    // dd($expedientes);
+                     
         
 
-        return view('jefeoficina.expedientes', compact('usuario', 'expedientes'));
+        return view('jefeoficina.expedientes', compact('usuario', 'expedientes','expedientesAntiguos'));
     }
 
     public function eliminarExpediente($idExpediente)
@@ -351,7 +372,9 @@ class JefeOficinaController extends Controller
                 $departamentoAlumno=$departamento->nombre;
                 $seguroSocial=$alumno->seguroSocial;
                 $fechaActual=$nuevaFecha;
-                $pdf = PDF::loadView('jefeoficina.formatos.cartaPresentacion', compact('Folio','asesorExterno','puestoAsesorExterno','Empresa','Alumno', 'numeroControl','carreraAlumno','departamentoAlumno','seguroSocial','fechaActual','Year'))->setOptions(['defaultFont' => 'sans-serif']); 
+                $empresa=$request->empresaSeguros;
+                
+                $pdf = PDF::loadView('jefeoficina.formatos.cartaPresentacion', compact('Folio','asesorExterno','puestoAsesorExterno','Empresa','Alumno', 'numeroControl','carreraAlumno','departamentoAlumno','seguroSocial','fechaActual','Year','empresa'))->setOptions(['defaultFont' => 'sans-serif']); 
                 $nombreArchivo = ''.$numeroControl.'.pdf';
                 return $pdf->download($nombreArchivo);
                 break;
