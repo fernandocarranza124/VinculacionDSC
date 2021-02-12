@@ -37,7 +37,8 @@
                         <div class="panel-heading image text-center">
                             <img src="https://morelia.tecsge.com/img/tnm.png" alt="Logo Tec" class="img-heading hidden-xs"> 
                             <h3 class="panel-title">
-                                Instituto Tecnológico de Morelia
+                                Instituto Tecnológico de Morelia 
+                                
                             </h3> 
                             <img src="https://morelia.tecsge.com/storage/data/tec/zpHB68Mn9ybbH7l9JuRsVwOpxeDW25rmC5cMVEeQ.png" alt="Logo Tec" class="img-heading hidden-xs">
                         </div> 

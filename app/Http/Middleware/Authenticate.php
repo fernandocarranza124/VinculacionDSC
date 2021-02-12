@@ -15,7 +15,9 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('index');
+             $errors = new MessageBag(['password' => ['No Control o contraseña incorrecta.']]);
+             
+            return view('index')->withErrors($errors);
         }
     }
 }

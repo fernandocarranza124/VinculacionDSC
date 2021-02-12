@@ -8410,7 +8410,7 @@ fieldset[disabled] .form-group .form-control {
 .form-group.is-focused .form-control {
   outline: none;
   background-image: linear-gradient(#04c496, #04c496), linear-gradient(#D2D2D2, #D2D2D2);
-  background-size: 100% 2px, 100% 1px;
+  /*background-size: 100% 2px, 100% 1px;*/
   box-shadow: none;
   transition-duration: 0.3s;
 }
@@ -8419,7 +8419,7 @@ fieldset[disabled] .form-group .form-control {
 }
 .form-group.is-focused label,
 .form-group.is-focused label.control-label {
-  color: #04c496;
+  /*color: #04c496;*/
 }
 .form-group.is-focused.label-placeholder label,
 .form-group.is-focused.label-placeholder label.control-label {

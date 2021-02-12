@@ -33,6 +33,12 @@ class RedirectIfAuthenticated
                         return redirect()->route('jefeoficina.home');
                     }
                     break;
+                case 'alumno':                
+                    if(Auth::guard($guard)->check()){
+                        //dd($guard);
+                        return redirect()->route('home');
+                    }
+                    break;
                 
                 default:
                     if(Auth::guard($guard)->check()){

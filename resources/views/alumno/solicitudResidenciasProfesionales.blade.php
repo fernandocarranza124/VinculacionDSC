@@ -54,7 +54,7 @@
                                         <input type="text" name="imss" id="imss" value="{{$usuario->segurosocial}}" disabled="disabled" class="form-control">
                                     </div> 
                                     <p class="text-muted">Si tienes un registro de seguridad social extra selecciona el tipo y escribe el número correspondiente.</p> 
-                                    <div class="form-group label-floating is-empty">
+                                    <div class="form-group label-floating is-empty is-focused">
                                         <label for="seguro" class="control-label"></label> 
                                         <select name="seguro" id="seguro" class="form-control" placeholder="Tipo de seguro">
                                             <option disabled selected>Tipo de seguro</option>
@@ -63,7 +63,7 @@
                                             <option value="3">OTRO</option>
                                         </select>
                                     </div> 
-                                    <div class="form-group label-floating is-empty">
+                                    <div class="form-group label-floating is-empty is-focused">
                                         
                                         <input type="text" name="no_seguro" id="no_seguro" value="" placeholder="Número de seguro" class="form-control"0>
                                     </div>
@@ -85,12 +85,12 @@
                                                         <input type="text" name="periodo" id="periodo" value="{{$periodo->nombre}}" disabled="disabled" class="form-control">
                                                         <input type="text" name="periodo_id" id="periodo_id" value="{{$periodo->id}}" class="form-control" style="display: none;">
                                                     </div> 
-                                                    <div class="form-group label-floating is-empty">
+                                                    <div class="form-group label-floating is-empty is-focused">
                                                         <label for="proyecto" class="control-label">Nombre del proyecto</label> 
                                                         <input type="text" name="proyecto" id="proyecto" value="" class="form-control" required=""></div>
                                                     </div> 
                                                     <div class="col-sm-6">
-                                                        <div class="form-group label-floating is-empty">
+                                                        <div class="form-group label-floating is-empty is-focused">
                                                             <label for="opcion" class="control-label"></label>
                                                             <select name="opcion" id="opcion" class="form-control" required="">
                                                                 <option disabled selected="" style="text-decoration-color: gray;">Opción elegida</option> 
@@ -99,7 +99,7 @@
                                                                 <option value="3">Trabajador</option>
                                                             </select>
                                                         </div> 
-                                                        <div class="form-group label-floating is-empty">
+                                                        <div class="form-group label-floating is-empty is-focused">
                                                             <label for="num_residentes" class="control-label">Número de residentes</label> 
                                                             <input type="number" name="num_residentes" id="num_residentes" value="" min="0" max="5" class="form-control" required="">
                                                         </div>
@@ -115,15 +115,15 @@
                                                             <div class="panel-body">
                                                                 <div class="row">
                                                                     <div class="col-sm-6">
-                                                                        <div class="form-group label-floating is-empty">
+                                                                        <div class="form-group label-floating is-empty is-focused">
                                                                             <label for="nombre_empresa" class="control-label">Nombre</label> 
                                                                             <input type="text" name="nombre_empresa" id="nombre_empresa" value="" class="form-control" required="">
                                                                         </div> 
-                                                                        <div class="form-group label-floating is-empty">
+                                                                        <div class="form-group label-floating is-empty is-focused">
                                                                             <label for="rfc" class="control-label">RFC</label> 
                                                                             <input type="text" name="rfc" id="rfc" value="" class="form-control" required="">
                                                                         </div> 
-                                                                        <div class="form-group label-floating is-empty">
+                                                                        <div class="form-group label-floating is-empty is-focused">
                                                                             <label for="giro" class="control-label">Giro, ramo o sector</label> 
                                                                             <select name="giro" id="giro" class="form-control" required="">
                                                                                 <option value=""></option> 
@@ -134,58 +134,58 @@
                                                                                 <option value="5">Otro</option>
                                                                             </select>
                                                                         </div>
-                                                                        <div class="form-group label-floating is-empty">
+                                                                        <div class="form-group label-floating is-empty is-focused">
                                                                             <label for="domicilio_dependencia" class="control-label">Calle y número</label> 
                                                                             <input type="text" name="domicilio_dependencia" id="domicilio_dependencia" value="" class="form-control" required="">
                                                                         </div> 
-                                                                        <div class="form-group label-floating is-empty">
+                                                                        <div class="form-group label-floating is-empty is-focused">
                                                                             <label for="colonia_dependencia" class="control-label">Colonia</label> 
                                                                             <input type="text" name="colonia_dependencia" id="colonia_dependencia" value="" class="form-control" required="">
                                                                         </div> 
-                                                                        <div class="form-group label-floating is-empty">
+                                                                        <div class="form-group label-floating is-empty is-focused">
                                                                             <label for="cp_dependencia" class="control-label">Código postal</label> 
                                                                             <input type="text" name="cp_dependencia" id="cp_dependencia" value="" class="form-control" required="">
                                                                         </div> 
-                                                                        <div class="form-group label-floating is-empty">
+                                                                        <div class="form-group label-floating is-empty is-focused">
                                                                             <label for="ciudad_dependencia" class="control-label">Ciudad y estado</label> 
                                                                             <input type="text" name="ciudad_dependencia" id="ciudad_dependencia" value="" class="form-control" required="">
                                                                         </div> 
-                                                                        <div class="form-group label-floating is-empty">
+                                                                        <div class="form-group label-floating is-empty is-focused">
                                                                             <label for="fax_dependencia" class="control-label">Fax</label> 
                                                                             <input type="text" name="fax_dependencia" id="fax_dependencia" value="" class="form-control">
                                                                         </div> 
-                                                                        <div class="form-group label-floating is-empty">
+                                                                        <div class="form-group label-floating is-empty is-focused">
                                                                             <label for="tel_dependencia" class="control-label">Teléfono</label> 
                                                                             <input type="text" name="tel_dependencia" id="tel_dependencia" value="" class="form-control" >
                                                                         </div>
                                                                     </div> 
                                                                     <div class="col-sm-6">
-                                                                        <div class="form-group label-floating is-empty">
+                                                                        <div class="form-group label-floating is-empty is-focused">
                                                                             <label for="titular" class="control-label">Nombre completo del titular</label> 
                                                                             <input type="text" name="titular" id="titular" value="" class="form-control" required="">
                                                                         </div> 
-                                                                        <div class="form-group label-floating is-empty">
+                                                                        <div class="form-group label-floating is-empty is-focused">
                                                                             <label for="puesto_titular" class="control-label">Puesto del titular</label> 
                                                                             <input type="text" name="puesto_titular" id="puesto_titular" value="" class="form-control" required="">
                                                                         </div> 
-                                                                        <div class="form-group label-floating is-empty">
+                                                                        <div class="form-group label-floating is-empty is-focused">
                                                                             <label for="asesor_externo" class="control-label">Nombre completo del asesor externo</label> 
                                                                             <input type="text" name="asesor_externo" id="asesor_externo" value="" class="form-control" required="">
                                                                         </div> 
-                                                                        <div class="form-group label-floating is-empty">
+                                                                        <div class="form-group label-floating is-empty is-focused">
                                                                             <label for="puesto_asesor_externo" class="control-label">Puesto del asesor externo</label> 
                                                                             <input type="text" name="puesto_asesor_externo" id="puesto_asesor_externo" value="" class="form-control" required="">
                                                                         </div> 
                                                                             <p class="text-muted">En caso de que exista otra persona encargada de firmar los documentos favor de anotarla a continuación.</p> 
-                                                                        <div class="form-group label-floating is-empty">
+                                                                        <div class="form-group label-floating is-empty is-focused">
                                                                             <label for="intermediario" class="control-label">Nombre completo del intermediario</label> 
                                                                             <input type="text" name="intermediario" id="intermediario" value="" class="form-control">
                                                                         </div> 
-                                                                        <div class="form-group label-floating is-empty">
+                                                                        <div class="form-group label-floating is-empty is-focused">
                                                                             <label for="puesto_intermediario" class="control-label">Puesto del intermediario</label> 
                                                                             <input type="text" name="puesto_intermediario" id="puesto_intermediario" value="" class="form-control">
                                                                         </div> 
-                                                                        <div class="form-group label-floating is-empty">
+                                                                        <div class="form-group label-floating is-empty is-focused">
                                                                             <label for="mision" class="control-label">Misión de la empresa</label> 
                                                                             <textarea name="mision" id="mision" rows="4" class="form-control" required=""></textarea>
                                                                         </div>
