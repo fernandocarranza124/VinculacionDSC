@@ -39,7 +39,7 @@ class AlumnoController extends Controller
         
         $carrera=Carrera::where('id', $carreraUsuario)->first();
         $departamento=Departamento::findOrFail($carrera->departamento);
-        $vacantes=Vacante::where('departamento', '=', $departamento->id)->get();
+        $vacantes=Vacante::where('departamento', '=', $departamento->id)->where('activa','=','True')->get();
         return view('alumno.catalogo', compact('usuario', 'vacantes'));
     }
     public function solicitaResidenciasProfesionales()
