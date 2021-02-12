@@ -226,6 +226,26 @@ class AlumnoController extends Controller
         
         return redirect('alumno/residencias-profesionales');   
     }
+    public function solicitaCancelacion(Request $request)
+    {    $usuario=Auth::user();
+        $nombreCompleto=$usuario->nombre.' '.$usuario->apellidoPaterno.' '.$usuario->apellidoMaterno;
+        $idExpediente=$request->expediente;
+        $expediente=Expediente::find($idExpediente);
+        $expediente->estatus = 14;
+        // Estatus = 14 equivale a solicitud  de cancelacion
+        $comentario=new Comentario;
+        $comentario->documento=-1;
+        $comentario->autor=$nombreCompleto;
+        $comentario->cargo='Residente';
+        $comentario->comentario=$request->motivos;
+        $comentario->expediente=$request->expediente;
+
+        
+        $comentario->save();
+        $expediente->save();
+
+     return redirect('alumno/residencias-profesionales');      
+    }
 
     /**
      * Show the form for creating a new resource.

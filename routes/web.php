@@ -37,6 +37,7 @@ Route::get('alumno/residencias-profesionales', [App\Http\Controllers\AlumnoContr
 Route::post('alumno/expediente/comentar', [App\Http\Controllers\AlumnoController::class, 'agregarComentario'])->name('alumno.expediente.comentar');
 Route::post('alumno/expediente/agregarCarpeta', [App\Http\Controllers\AlumnoController::class, 'agregarCarpeta'])->name('alumno.expediente.carpeta');
 Route::post('alumno/expediente/SubirArchivo', [App\Http\Controllers\AlumnoController::class, 'subirArchivo'])->name('alumno.expediente.documento.subir');
+Route::post('alumno/expediente/solciitudCancelacion', [App\Http\Controllers\AlumnoController::class, 'solicitaCancelacion'])->name('alumno.expediente.reasignar');
 //
 //
 //
@@ -50,6 +51,7 @@ Route::get('profesor/residencias-profesionales',[App\Http\Controllers\ProfesorCo
 Route::get('profesor/expedientes/ver/{idExpediente}', [App\Http\Controllers\ProfesorController::class, 'editExpediente'])->name('profesor.expedientes.edit');
 Route::post('profesor/expedientes/comentar', [App\Http\Controllers\ProfesorController::class, 'agregarComentario'])->name('profesor.expediente.comentar');
 Route::post('profesor/expedientes/aprobarDocumento', [App\Http\Controllers\ProfesorController::class, 'aprobarDocumento'])->name('profesor.expediente.documento.aprobar');
+
 
 // 
 // 

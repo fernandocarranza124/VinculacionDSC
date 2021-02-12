@@ -179,6 +179,7 @@ class JefeOficinaController extends Controller
 
     public function eliminarExpediente($idExpediente)
     {
+        
         $Comentario=Comentario::where('expediente',$idExpediente)->delete();
         $Registro=Registro::where('expediente',$idExpediente)->delete();
         $Expediente=Expediente::where('id',$idExpediente)->delete();
@@ -226,9 +227,14 @@ class JefeOficinaController extends Controller
         $documentosAutorizado=documento_pivote::where('expediente',$expediente->id)->where('autorizado',2)->get();
         $documentosRegistrados=documento::all();
 
+        $comentarioCancelacion = Comentario::where('expediente','=',$idExpediente)
+                    ->where('comentario.documento','=','-1')
+                    ->leftjoin('documento','comentario.documento','=','documento.id')
+                    ->orderBy('created_at', 'desc')
+                    ->get(['comentario.*','documento.nombre as nombreDocumento', 'documento.link as link'])->first();
+        
 
-
-        return view('jefeoficina.expediente', compact('usuario','expediente','profesores','comentarios','registros','documentosAutorizado','documentosRevision','documentosPendiente','documentosRegistrados'));
+        return view('jefeoficina.expediente', compact('usuario','expediente','profesores','comentarios','registros','documentosAutorizado','documentosRevision','documentosPendiente','documentosRegistrados','comentarioCancelacion'));
     }
      public function obtieneFecha($fecha)
     {
@@ -313,7 +319,12 @@ class JefeOficinaController extends Controller
     {
         $documento=new documento;
         $documento->nombre = $request->nombreDocumento;
-        $documento->link = $request->linkDocumento;
+        if (isset($request->linkDocumento)) {
+            $documento->link = $request->linkDocumento;    
+        }else{
+            $documento->link = "False";
+        }
+        
         $documento->save();
         return redirect()->route('jefeoficina.show.documentos');
     }

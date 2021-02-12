@@ -95,6 +95,14 @@
             $intermedio="";
             $final="";
             break;
+
+            case '14':
+            $apertura=$alerta;
+            $asesor=$alerta;
+            $aprobados=$alerta;
+            $intermedio=$alerta;
+            $final=$alerta;
+            break;
             
             default:
                 # code...
@@ -203,8 +211,16 @@
                         </span>
                     </a>
                 </li>
-                @else
-
+                @endif
+                @if ($comentarioCancelacion != null )
+                <li>
+                    <a href="#Cancelacion" data-toggle="tab">
+                        Solicitud de cancelacion
+                        <span class="badge badge-primary" style="background-color: #ffcc00;">
+                            <i class="fa fa-bell" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                </li>
                 @endif
             </ul>    
         </div>
@@ -726,6 +742,68 @@
                                             <input type="text" name="idExpediente" value="{{$expediente->id}}" hidden="">
                                         </div>
                                     </form>
+                                </div>
+                            </div>
+                        </li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="Cancelacion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                    Cancelacion</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="simple">
+                        <li>
+                            <div class="row ">
+                                <div class="col-sm-12">
+                                    <h5 class="text-muted">El alumno solicitó una reasignacion o cancelacion de su residencia profesional, a continuacion se muestran los motivos que envió: </h5>
+                                    <div class="row" style="    border-bottom: 0.1rem solid gray;">
+                                                <div class="row">
+                                                    <div class="col-sm-1">
+
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <h4>{{$comentarioCancelacion->autor}}</h4>
+                                                        <small style="color: gray;"><i>{{$comentarioCancelacion->cargo}}</i></small>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                     
+                                                     <small style="color: gray;">Fecha de creacion: <i>{{$comentarioCancelacion->created_at}}</i></small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1">
+
+                                                </div>
+                                                <div class="col-sm-11">
+
+                                                    <p>{{$comentarioCancelacion->comentario}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <br>
+                                    <br>
+                                    <h5 class="text-muted">Indica si se reiniciará su expediente o si se reiniciará su expediente: </h5>
+                                    <div class="col-sm-6">
+                                            <a class="btn btn-danger btn-raised btn-md" href="../../expedientes/eliminar/{{$expediente->id}}"> 
+                                                <i class="fa fa-trash" aria-hidden="true"></i>Borrar expediente
+                                            </a>
+                                    </div>
+                                    <div class="col-sm-6">
+                                         <form action="{{route('jefeoficina.expediente.estatus.actualizar')}}" method="post" accept-charset="utf-8">
+                                            @csrf
+                                            <input type="hidden" name="idExpediente" id="idcarpetaNube" class="form-control" value="{{$expediente->id}}">
+                                            <input type="hidden" name="menufases" id="idcarpetaNube" class="form-control" value="1">
+                                            <button type="submit" class="btn btn-danger btn-raised btn-md" id="cancelacion">Reasignación</button>
+                                        </form>
+                                        
+                                    </div>
+
                                 </div>
                             </div>
                         </li> 

@@ -1,2 +1,10 @@
 HU17 -> Cambios a los estilos
 HU16 -> Cambios a los controladores de autenticacion de usuario
+HU07 -> Cambios a la vista de usuarios, mostrando unicamente las vacantes activas. El jefe ya lo tenía
+HU21 -> Cmabios a la vista, controladores y funciones. Para acceder a esta funcion el alumno deberá ingresar a la pestaña de Opciones, indicar los motivos de su solicitud y enviarla. Posteriormente el jefedeoficina puede ver esta solicitud entrando al expediente del alumno y podrá notar que la barrá indica alerta y está la opcion para administrar esta solicitud permitiendole definir si borra el expediente o lo reasigna. este estado puede retornarse a como se encontraba antes de la solicitud mediante la opcion de actualizar estado que se encuentra siempre en la parte superior de la vista
+
+
+/* Comentarios de HU
+HU14 -> Hasta ahora unicamente se tendrá la opcion de subir documentacion en la nube, entonces se genera la carta en la HU12 y el usuario accede al link que se muestra en la pagina principal del expediente (Siempre y cuando el alumno guardé ese enlace a una carpeta compartida en la nube)
+HI14 -> El usuario, al igual que el comentario anterior, tendrá que subirlo a su carpeta compartida en la nube
+HU22 -> El usuario, por ahora, deberá de esperar a que el jefe de oficina suba el documento a la carpeta en la nube para pdoer descargarla

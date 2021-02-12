@@ -24,8 +24,13 @@
                                         <h5>Documento: {{$documento->nombre}}</h5> 
                                     </div>
                                     <div class="col-sm-5">
+                                        @if ($documento->link != "False")
                                         <a href="{{$documento->link}}" class="btn btn-primary btn-raised btn-sm" add target="_blank">Ver</a> 
-                                        <a href="eliminar/{{$documento->id}}" class="btn btn-danger btn-raised btn-sm">Eliminar</a> 
+                                        
+                                        @else
+                                        <a href="#" class="btn btn-default btn-raised btn-sm">Ver</a> 
+                                        @endif
+                                        <a href="eliminar/{{$documento->id}}" class="btn btn-danger btn-raised btn-sm">Eliminar</a>
                                     </div>
                                 </div>
                             @endforeach

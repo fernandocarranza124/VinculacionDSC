@@ -181,6 +181,9 @@
                 <li>
                     <a href="#Comentarios" data-toggle="tab">Comentarios</a>
                 </li>
+                <li>
+                    <a href="#Opciones" data-toggle="tab">Opciones</a>
+                </li>
             </ul>    
         </div>
         {{-- Cuerpo primer tabulador --}}
@@ -410,9 +413,10 @@
                                                             <div class="col-sm-5">
                                                                 @if ($comentario->documento==0)
                                                                     <h6 class="text-muted">Documento citado: ninguno</h6>
+                                                                @elseif ($comentario->documento==-1)
+                                                                    <h6 class="text-muted">Solicitud de reasignacion o cancelación</h6>
                                                                 @else
-                                                                    <h6>Documento citado: {{$comentario->nombreDocumento}}
-                                                         </h6>
+                                                                <h6>Documento citado: {{$comentario->nombreDocumento}}</h6>
                                                                 @endif
                                                                 <small style="color: gray;">Fecha de creacion: <i>{{$comentario->created_at}}</i></small>
                                                             </div>
@@ -492,6 +496,44 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="tab-pane" id="Opciones">
+                    {{-- Tarjeta de informacion general --}}
+                    <div class="col-md-12 col-sm-12" style="padding-left: 0px; padding-right: 0px;">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title text-center">
+                                    Opciones
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <h4>Si deseas solicitar una cancelación  o reasignacion de tu residencia profesional indica los motivos y envía la solicitud</h4>
+                                </div> 
+                                <form action="{{route('alumno.expediente.reasignar')}}" method="post" accept-charset="utf-8">
+                                @csrf
+                                <div class="row">
+                                                <div class="col-sm-12 text-left">
+                                                    <h4>Motivos: </h4>
+                                                    <textarea style="width: 100%; resize: none;" class='autoExpand' rows='3' data-min-rows='3' placeholder='Ingrese motivos de la solicitud' name="motivos"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6 text-left">
+                                                    <input type="numeric" name="expediente" value="{{$expediente->id}}" hidden="">
+                                                </div>
+                                                <div class="col-sm-6 text-right">
+                                                    <button class="btn btn-primary btn-raised btn-sm" type="submit">Solicitar</button>
+                                                </div>
+                                            </div>
+                                <br> 
+                                </form>
+                            </div>
+                        </div>
+                    </div>  
+
+                    
+                 </div>
         </div>
     </div>
             {{-- </div>
