@@ -72,7 +72,12 @@ class AlumnoController extends Controller
         $expediente->numeroSeguroExtra=$request->input('no_seguro');
         $expediente->periodo=$request->input('periodo_id');
         $expediente->nombreProyecto=$request->input('proyecto');
-        $expediente->opcion=$request->input('opcion');
+        if (isset($request->input('opcion')) {
+            $expediente->opcion=$request->input('opcion');    
+        }else{
+            $expediente->opcion=1;    
+        }
+        
         $expediente->nombreEmpresa=$request->input('nombre_empresa');
         $expediente->rfcEmpresa=$request->input('rfc');
         $expediente->giroEmpresa=$request->input('giro');
