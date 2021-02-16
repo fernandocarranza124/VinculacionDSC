@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
-use Illuminate\Support\MessageBag;
+
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
@@ -15,7 +15,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-             $errors = new MessageBag(['password' => ['No Control o contraseña incorrecta.']]);
+             //$errors = new MessageBag(['password' => ['No Control o contraseña incorrecta.']]);
              
             return view('index')->withErrors($errors);
         }
