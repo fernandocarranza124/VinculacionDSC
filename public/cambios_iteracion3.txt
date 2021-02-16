@@ -1,0 +1,14 @@
+HU28, es necesario que el avance del expediente se encuentre en informe intermedio o mayor, de esta manera indica que el informe semestral se subirá a la par que el alumno termine su tramite. La opcion para subirlo se encuentra en 
+		Profesor -> Expedientes -> Documentos -> Mensaje de reporte semestral
+
+
+HU17 corregido
+HU13 tambien será en la nube
+
+HU12 , es necesario que ya se haya asignado un asesor interno al expediente, una vez echo esto le permite al jefe de oficina crear la carta de presentacion al alumno. Esta funcion se encuentra en
+		Jefe de oficina -> Expedientes -> Documentos -> Generar documentos 
+
+HU08 corregido
+
+HU03, no se puede probar debido a que esta generando el archivo csv y lo guarda en el servidor. al ser un host gratuito es imposible generarlo y descargarlo
+

@@ -270,6 +270,25 @@
                     </div>
 
                     <div class="tab-pane " id="Documentos">
+                        @if ($expediente->estatus >= 9)
+                        <div class="col-md-12 col-sm-12" style="">
+                            <div class="panel panel-default" style="overflow-y: scroll;" >
+                                <div class="panel-heading aprobados" style="">
+                                    <h3 class="panel-title text-center">
+                                        Reporte semestral
+                                    </h3>
+                                </div>
+                                <div class="panel-body"> 
+                                    <h4>El alumno está por terminar su tramite de residencia, sube tu reporte semestral a la carpeta en la nube designada para que el jefe de la oficina pueda revisarlo. </h4>
+                                    <div class="col-sm-9 text-right"></div>
+                                    <div class="col-sm-3 text-right">
+                                                    <a class="btn btn-primary btn-raised btn-md" href="{{$expediente->Nube}}"  target="_blank">Abrir carpeta</a>
+                                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+
                         <div class="col-md-4 col-sm-4" style="">
                             <div class="panel panel-default panel-documentos" style="overflow-y: scroll;" >
                                 <div class="panel-heading pendientes" style="">

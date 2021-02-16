@@ -77,7 +77,7 @@
             $asesor="";
             $aprobados="";
             $intermedio="";
-            $final="";
+            $final=$desactivado;
             break;
             // Reporte final aprobado con modificaciones
             case '12':
@@ -186,6 +186,18 @@
             </div>
         </div>
         <br>
+        @else 
+        <div class="col-sm-12 col-sm-offset-0">
+            <div class="panel panel-default" >
+                <div class="panel-body text-center vacante" style="height: fit-content; padding-bottom: 0px;">
+                    <div class="col-12 justify-content-center align-self-center">
+                        <div class="progeso-panel">
+                            <h5><strong> Es necesario que el alumno registre una carpeta compartida en la nube para poder continuar con el proceso de residencia profesional. </strong></h5>
+                        </div>
+                    </div>
+                </div>        
+            </div>
+        </div>
         @endif
         {{-- Tabulador por seccion --}}
         <div id="exTab1" class="container-fluid"> 
