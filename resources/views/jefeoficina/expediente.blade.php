@@ -759,6 +759,7 @@
                 <div class="panel-body">
                     <ul class="simple">
                         <li>
+                            @if ($comentarioCancelacion != null )
                             <div class="row ">
                                 <div class="col-sm-12">
                                     <h5 class="text-muted">El alumno solicitó una reasignacion o cancelacion de su residencia profesional, a continuacion se muestran los motivos que envió: </h5>
@@ -806,6 +807,7 @@
 
                                 </div>
                             </div>
+                            @endif
                         </li> 
                     </ul>
                 </div>
