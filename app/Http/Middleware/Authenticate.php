@@ -17,7 +17,8 @@ class Authenticate extends Middleware
         if (! $request->expectsJson()) {
              //$errors = new MessageBag(['password' => ['No Control o contraseña incorrecta.']]);
              
-            return view('index')->withErrors($errors);
+            //return view('index')->withErrors($errors);
+            return view('index');
         }
     }
 }
