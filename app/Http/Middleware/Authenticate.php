@@ -20,5 +20,6 @@ class Authenticate extends Middleware
             //return view('index')->withErrors($errors);
             return view('index');
         }
+        return view('index');
     }
 }
