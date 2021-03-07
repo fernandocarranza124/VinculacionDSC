@@ -468,9 +468,9 @@
                                         <option value="null" selected=""  disabled="">Selecciona un documento </option>
                                         <option value="1"><strong>Carta de presentacion del estudiante</strong></option>
                                         <option value="2">Carta de asignacion de asesor interno</option>
-                                        <option value="3">Revision de informe</option>
-                                        <option value="4">Constancia de cumplimiento</option>
-                                        <option value="5">Carta de acreditacion de residencia profesional</option>
+                                        {{-- <option value="3">Revision de informe</option> --}}
+                                        {{-- <option value="4">Constancia de cumplimiento</option> --}}
+                                        {{-- <option value="5">Carta de acreditacion de residencia profesional</option> --}}
                                     </select>
 
                                     @else
